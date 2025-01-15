@@ -1,8 +1,11 @@
-import { Routes } from '@angular/router';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { ProductListComponent } from './products/product-list/product-list.component';
 import { ProductDetailComponent } from './products/product-detail/product-detail.component';
+import { ProductCreateComponent } from './products/product-create/product-create.component';
+import { ProductEditComponent } from './products/product-edit/product-edit.component';
 import { CategoryListComponent } from './categories/category-list/category-list.component';
 import { CategoryCreateComponent } from './categories/category-create/category-create.component';
 import { CategoryEditComponent } from './categories/category-edit/category-edit.component';
@@ -14,6 +17,8 @@ export const appRoutes: Routes = [
   { path: 'auth/login', component: LoginComponent }, // Login-Seite
   { path: 'auth/register', component: RegisterComponent }, // Registrierung
   { path: 'products', component: ProductListComponent }, // Produktliste
+  { path: 'products/create', component: ProductCreateComponent }, // Produkt erstellen
+  { path: 'products/edit/:id', component: ProductEditComponent }, // Produkt bearbeiten
   { path: 'products/:id', component: ProductDetailComponent }, // Produktdetails
   { path: 'categories', component: CategoryListComponent }, // Kategorienliste
   { path: 'categories/create', component: CategoryCreateComponent }, // Kategorie erstellen
@@ -23,3 +28,10 @@ export const appRoutes: Routes = [
   { path: 'users/promote', component: UserPromoteComponent }, // Benutzer zu Admins befördern
   { path: '**', redirectTo: '/products' }, // Fallback für ungültige Routen
 ];
+
+// wird benötigt, um die Datei als Modul zu definieren, damit die Routen funktionieren
+@NgModule({
+  imports: [RouterModule.forRoot(appRoutes)], //initialisiert die Routen
+  exports: [RouterModule],
+})
+export class AppRoutesModule {}
