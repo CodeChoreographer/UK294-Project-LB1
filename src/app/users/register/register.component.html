@@ -1,0 +1,97 @@
+<div class="register-container">
+  <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
+    <h2>Registrierung</h2>
+
+    <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+
+    <label for="firstName">Vorname</label>
+    <input
+      type="text"
+      id="firstName"
+      name="firstName"
+      [(ngModel)]="formData.firstName"
+      required
+    />
+
+    <label for="lastName">Nachname</label>
+    <input
+      type="text"
+      id="lastName"
+      name="lastName"
+      [(ngModel)]="formData.lastName"
+      required
+    />
+
+    <label for="street">Strasse</label>
+    <input
+      type="text"
+      id="street"
+      name="street"
+      [(ngModel)]="formData.street"
+      required
+    />
+
+    <label for="zip">PLZ</label>
+    <input
+      type="text"
+      id="zip"
+      name="zip"
+      [(ngModel)]="formData.zip"
+      required
+    />
+
+    <label for="city">Stadt</label>
+    <input
+      type="text"
+      id="city"
+      name="city"
+      [(ngModel)]="formData.city"
+      required
+    />
+
+    <label for="country">Land</label>
+    <input
+      type="text"
+      id="country"
+      name="country"
+      [(ngModel)]="formData.country"
+      required
+    />
+
+    <label for="phone">Telefon</label>
+    <input
+      type="text"
+      id="phone"
+      name="phone"
+      [(ngModel)]="formData.phone"
+    />
+
+    <label for="mobilePhone">Mobiltelefon</label>
+    <input
+      type="text"
+      id="mobilePhone"
+      name="mobilePhone"
+      [(ngModel)]="formData.mobilePhone"
+    />
+
+    <label for="email">E-Mail</label>
+    <input
+      type="email"
+      id="email"
+      name="email"
+      [(ngModel)]="formData.email"
+      required
+    />
+
+    <label for="password">Passwort</label>
+    <input
+      type="password"
+      id="password"
+      name="password"
+      [(ngModel)]="formData.password"
+      required
+    />
+
+    <button type="submit" [disabled]="!registerForm.valid">Registrieren</button>
+  </form>
+</div>
