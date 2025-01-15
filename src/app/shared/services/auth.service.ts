@@ -6,7 +6,12 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'https://294.cyrotech.ch/auth'; // Basis-URL für Authentifizierung
+  private apiUrl = 'https://294.cyrotech.ch/users';
+
+  register(userData: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/register`, userData);
+  }
+
 
   constructor(private http: HttpClient) {}
 
@@ -14,8 +19,8 @@ export class AuthService {
    * Führt den Login durch und gibt das JWT-Token zurück
    * @returns Observable mit dem API-Response
    */
-  login(username: string, password: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login`, { username, password });
+  login(email: string, password: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/login`, { email, password });
   }
 
   /**

@@ -2,8 +2,6 @@
   <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
     <h2>Anmeldung</h2>
 
-    <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
-
     <label for="username">Benutzername</label>
     <input
       type="text"
@@ -21,6 +19,8 @@
       [(ngModel)]="password"
       required
     />
+
+    <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
 
     <button type="submit" [disabled]="!loginForm.valid">Anmelden</button>
   </form>

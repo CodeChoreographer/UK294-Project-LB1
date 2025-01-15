@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './auth/login/login.component';
-import { RegisterComponent } from './auth/register/register.component';
+import { LoginComponent } from './users/login/login.component';
+import { RegisterComponent } from './users/register/register.component';
 import { ProductListComponent } from './products/product-list/product-list.component';
 import { ProductDetailComponent } from './products/product-detail/product-detail.component';
 import { ProductCreateComponent } from './products/product-create/product-create.component';
@@ -14,8 +14,10 @@ import { UserPromoteComponent } from './users/user-promote/user-promote.componen
 
 export const appRoutes: Routes = [
   { path: '', redirectTo: '/products', pathMatch: 'full' }, // Standardroute
-  { path: 'auth/login', component: LoginComponent }, // Login-Seite
-  { path: 'auth/register', component: RegisterComponent }, // Registrierung
+  { path: 'users/login', component: LoginComponent }, // Login-Seite
+  { path: 'users/register', component: RegisterComponent }, // Registrierung
+  { path: 'users', component: UserListComponent }, // Benutzerliste (nur Admins)
+  { path: 'users/promote', component: UserPromoteComponent }, // Benutzer zu Admins befördern
   { path: 'products', component: ProductListComponent }, // Produktliste
   { path: 'products/create', component: ProductCreateComponent }, // Produkt erstellen
   { path: 'products/edit/:id', component: ProductEditComponent }, // Produkt bearbeiten
@@ -24,8 +26,6 @@ export const appRoutes: Routes = [
   { path: 'categories/create', component: CategoryCreateComponent }, // Kategorie erstellen
   { path: 'categories/edit/:id', component: CategoryEditComponent }, // Kategorie bearbeiten
   { path: 'categories/:id/products', component: ProductListComponent }, // Produkte in einer Kategorie
-  { path: 'users', component: UserListComponent }, // Benutzerliste (nur Admins)
-  { path: 'users/promote', component: UserPromoteComponent }, // Benutzer zu Admins befördern
   { path: '**', redirectTo: '/products' }, // Fallback für ungültige Routen
 ];
 
