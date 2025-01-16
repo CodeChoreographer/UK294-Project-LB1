@@ -21,14 +21,12 @@ export class LoginComponent {
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  /**
-   * Überprüft die Login-Daten über das Backend
-   */
+
   onSubmit(): void {
     this.showPassword = true;
     this.authService.login(this.username, this.password).subscribe({
       next: (response) => {
-        localStorage.setItem('token', response.token); // Speichert den Authentifizierungstoken
+        localStorage.setItem('authToken', response.token); // Speichert den Authentifizierungstoken
         this.router.navigate(['/products']);
       },
       error: (err) => {

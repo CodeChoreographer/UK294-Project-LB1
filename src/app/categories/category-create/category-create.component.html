@@ -1,1 +1,18 @@
-<p>category-create works!</p>
+<div class="category-create-container">
+  <h2>Kategorie erstellen</h2>
+
+  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+
+  <form (ngSubmit)="onSubmit()" #categoryForm="ngForm">
+    <label for="name">Name der Kategorie</label>
+    <input
+      type="text"
+      id="name"
+      name="name"
+      [(ngModel)]="categoryData.name"
+      required
+    />
+
+    <button type="submit" [disabled]="!categoryForm.valid">Kategorie erstellen</button>
+  </form>
+</div>
