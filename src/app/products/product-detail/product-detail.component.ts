@@ -1,11 +1,41 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { ProductService } from '../../shared/services/product.service';
+import {CurrencyPipe, NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-product-detail',
-  imports: [],
   templateUrl: './product-detail.component.html',
-  styleUrl: './product-detail.component.css'
+  styleUrls: ['./product-detail.component.scss'],
+  imports: [
+    CurrencyPipe,
+    NgIf
+  ]
 })
-export class ProductDetailComponent {
+export class ProductDetailComponent implements OnInit {
+  product: any = null;
+  errorMessage: string = '';
 
+  constructor(
+    private route: ActivatedRoute,
+    private productService: ProductService
+  ) {}
+
+  ngOnInit(): void {
+    const productId = this.route.snapshot.paramMap.get('id');
+    if (productId) {
+      this.loadProductDetails(+productId);
+    }
+  }
+
+  loadProductDetails(id: number): void {
+    this.productService.getProductById(id).subscribe({
+      next: (data) => {
+        this.product = data;
+      },
+      error: () => {
+        this.errorMessage = 'Fehler beim Laden der Produktdetails.';
+      },
+    });
+  }
 }
