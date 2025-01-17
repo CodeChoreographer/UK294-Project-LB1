@@ -1,1 +1,44 @@
-<p>category-edit works!</p>
+<div class="category-edit-container">
+  <h2>Kategorie bearbeiten</h2>
+
+  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+
+  <div *ngIf="categoryData">
+    <h3>Name: {{ categoryData.name }}</h3>
+    <p>Status: {{ categoryData.active ? 'Aktiv' : 'Inaktiv' }}</p>
+
+    <h3>Produkte in dieser Kategorie</h3>
+    <ul>
+      <li *ngFor="let product of categoryData.products">
+        <strong>{{ product.name }}</strong>
+        (SKU: {{ product.sku }}, Preis: {{ product.price | currency }}, Lagerbestand: {{ product.stock }})
+      </li>
+    </ul>
+
+    <div *ngIf="isAdmin">
+      <h3>Kategorie bearbeiten</h3>
+      <form (ngSubmit)="onSave()">
+        <label for="name">Name der Kategorie</label>
+        <input
+          type="text"
+          id="name"
+          [(ngModel)]="categoryData.name"
+          name="name"
+          required
+        />
+
+        <label for="active">Aktiv?</label>
+        <input
+          type="checkbox"
+          id="active"
+          [(ngModel)]="categoryData.active"
+          name="active"
+        />
+
+        <button type="submit">Änderungen speichern</button>
+      </form>
+
+      <button (click)="onDelete()">Kategorie löschen</button>
+    </div>
+  </div>
+</div>

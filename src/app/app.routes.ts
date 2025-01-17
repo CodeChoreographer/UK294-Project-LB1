@@ -26,6 +26,7 @@ export const appRoutes: Routes = [
   { path: 'categories/create', component: CategoryCreateComponent }, // Kategorie erstellen
   { path: 'categories/edit/:id', component: CategoryEditComponent }, // Kategorie bearbeiten
   { path: 'categories/:id/products', component: ProductListComponent }, // Produkte in einer Kategorie
+  { path: 'categories/:id', component: CategoryEditComponent },
   { path: '**', redirectTo: '/products' }, // Fallback für ungültige Routen
 ];
 
