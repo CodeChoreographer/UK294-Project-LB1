@@ -24,10 +24,54 @@ export class CategoryService {
 
   getCategories(): Observable<any[]> {
     const token = localStorage.getItem('authToken');
+    if (!token) {
+      throw new Error('Authentifizierungs-Token fehlt');
+    }
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`,
     });
 
-    return this.http.get<any[]>(`${this.apiUrl}`, { headers });
+    return this.http.get<any[]>(this.apiUrl, { headers });
   }
+
+  getCategoryById(id: number): Observable<any> {
+    const token = localStorage.getItem('authToken');
+    if (!token) {
+      throw new Error('Authentifizierungs-Token fehlt');
+    }
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
+    return this.http.get<any>(`${this.apiUrl}/${id}`, { headers });
+  }
+
+  updateCategory(categoryData: any): Observable<any> {
+    const token = localStorage.getItem('authToken');
+    if (!token) {
+      throw new Error('Authentifizierungs-Token fehlt');
+    }
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    });
+
+    return this.http.put(`${this.apiUrl}/${categoryData.id}`, categoryData, {
+      headers,
+    });
+  }
+
+
+  deleteCategory(id: number): Observable<any> {
+    const token = localStorage.getItem('authToken');
+    if (!token) {
+      throw new Error('Authentifizierungs-Token fehlt');
+    }
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
+    return this.http.delete(`${this.apiUrl}/${id}`, { headers });
+  }
+
 }

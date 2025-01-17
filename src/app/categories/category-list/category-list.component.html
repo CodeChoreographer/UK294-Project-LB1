@@ -1,1 +1,30 @@
-<p>category-list works!</p>
+<div class="category-list-container">
+  <h2>Kategorien</h2>
+
+  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+
+  <div *ngIf="categories.length > 0; else noCategories">
+    <table>
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Aktionen</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let category of categories">
+        <td>{{ category.id }}</td>
+        <td>{{ category.name }}</td>
+        <td>
+          <button (click)="editCategory(category.id)">Kategorie bearbeiten</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <ng-template #noCategories>
+    <p>Keine Kategorien verfügbar.</p>
+  </ng-template>
+</div>

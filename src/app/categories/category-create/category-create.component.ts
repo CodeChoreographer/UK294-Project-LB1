@@ -16,8 +16,8 @@ import {NgIf} from '@angular/common';
 export class CategoryCreateComponent {
   categoryData = {
     name: '',
+    active: true,
   };
-
   errorMessage: string = '';
 
   constructor(private categoryService: CategoryService, private router: Router) {}

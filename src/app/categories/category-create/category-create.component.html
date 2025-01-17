@@ -4,6 +4,7 @@
   <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
 
   <form (ngSubmit)="onSubmit()" #categoryForm="ngForm">
+    <!-- Name der Kategorie -->
     <label for="name">Name der Kategorie</label>
     <input
       type="text"
@@ -13,6 +14,12 @@
       required
     />
 
+    <label for="active">Status der Kategorie</label>
+    <select id="active" name="active" [(ngModel)]="categoryData.active">
+      <option [value]="true">Aktiv</option>
+      <option [value]="false">Inaktiv</option>
+    </select>
+<p></p>
     <button type="submit" [disabled]="!categoryForm.valid">Kategorie erstellen</button>
   </form>
 </div>
