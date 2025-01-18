@@ -1,11 +1,44 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { UserService } from '../../shared/services/user.service';
 
 @Component({
   selector: 'app-user-list',
-  imports: [],
   templateUrl: './user-list.component.html',
-  styleUrl: './user-list.component.css'
+  styleUrls: ['./user-list.component.scss'],
 })
-export class UserListComponent {
+export class UserListComponent implements OnInit {
+  users: any[] = [];
+  errorMessage: string = '';
 
+  constructor(private userService: UserService) {}
+
+  ngOnInit(): void {
+    this.loadUsers();
+  }
+
+  loadUsers(): void {
+    this.userService.getUsers().subscribe({
+      next: (data) => {
+        console.log('Geladene Benutzer:', data);
+        this.users = data;
+      },
+      error: (err) => {
+        this.errorMessage = 'Fehler beim Laden der Benutzer.';
+        console.error(err);
+      },
+    });
+  }
+
+  promoteUser(userId: number): void {
+    this.userService.promoteToAdmin(userId).subscribe({
+      next: () => {
+        alert(`Benutzer mit ID ${userId} wurde erfolgreich zum Admin befördert.`);
+        this.loadUsers();
+      },
+      error: (err) => {
+        const backendMessage = err.error?.response || 'Unbekannter Fehler vom Backend.';
+        this.errorMessage = `Fehler beim Befördern des Benutzers: ${backendMessage}`;
+      },
+    });
+  }
 }
