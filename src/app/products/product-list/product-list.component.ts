@@ -1,17 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ProductService } from '../../shared/services/product.service';
-import {CurrencyPipe, NgForOf, NgIf, NgOptimizedImage} from '@angular/common';
-import {Router} from '@angular/router';
+import {CurrencyPipe} from '@angular/common';
 
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.scss'],
   imports: [
-    CurrencyPipe,
-    NgForOf,
-    NgOptimizedImage,
-    NgIf
+    CurrencyPipe
   ]
 })
 export class ProductListComponent implements OnInit {
@@ -31,9 +28,11 @@ export class ProductListComponent implements OnInit {
       },
       error: (err) => {
         this.errorMessage = 'Fehler beim Laden der Produkte.';
+        console.error(err);
       },
     });
   }
+
   goToProductDetail(id: number): void {
     this.router.navigate(['/products', id]);
   }

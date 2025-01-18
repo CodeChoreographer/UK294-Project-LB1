@@ -1,19 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CategoryService } from '../../shared/services/category.service';
-import {CurrencyPipe, NgForOf, NgIf} from '@angular/common';
 import {FormsModule} from '@angular/forms';
+import {CurrencyPipe} from '@angular/common';
 
 @Component({
   selector: 'app-category-edit',
   templateUrl: './category-edit.component.html',
-  styleUrls: ['./category-edit.component.scss'],
   imports: [
-    CurrencyPipe,
     FormsModule,
-    NgIf,
-    NgForOf
-  ]
+    CurrencyPipe
+  ],
+  styleUrls: ['./category-edit.component.scss']
 })
 export class CategoryEditComponent implements OnInit {
   categoryData: any = null;
@@ -35,7 +33,6 @@ export class CategoryEditComponent implements OnInit {
     const token = localStorage.getItem('authToken');
     this.isAdmin = !!token;
   }
-
 
   loadCategoryDetails(id: number): void {
     this.categoryService.getCategoryById(id).subscribe({

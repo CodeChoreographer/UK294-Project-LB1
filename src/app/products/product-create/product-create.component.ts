@@ -1,19 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProductService } from '../../shared/services/product.service';
+import { CategoryService } from '../../shared/services/category.service';
 import {FormsModule} from '@angular/forms';
-import {NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-product-create',
   templateUrl: './product-create.component.html',
-  styleUrls: ['./product-create.component.scss'],
   imports: [
-    FormsModule,
-    NgIf
-  ]
+    FormsModule
+  ],
+  styleUrls: ['./product-create.component.scss']
 })
-export class ProductCreateComponent {
+export class ProductCreateComponent implements OnInit {
   productData = {
     sku: '',
     active: true,
@@ -25,9 +24,30 @@ export class ProductCreateComponent {
     categoryId: 0,
   };
 
+  categories: any[] = [];
   errorMessage: string = '';
 
-  constructor(private productService: ProductService, private router: Router) {}
+  constructor(
+    private productService: ProductService,
+    private categoryService: CategoryService,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+    this.loadCategories();
+  }
+
+  loadCategories(): void {
+    this.categoryService.getCategories().subscribe({
+      next: (data) => {
+        this.categories = data;
+      },
+      error: (err) => {
+        console.error('Fehler beim Laden der Kategorien:', err);
+        this.errorMessage = 'Fehler beim Laden der Kategorien.';
+      },
+    });
+  }
 
   onSubmit(): void {
     this.productService.createProduct(this.productData).subscribe({
@@ -36,7 +56,8 @@ export class ProductCreateComponent {
         this.router.navigate(['/products']);
       },
       error: (err) => {
-        this.errorMessage = err.error.message || 'Fehler beim Erstellen des Produkts.';
+        this.errorMessage =
+          err.error?.message || 'Fehler beim Erstellen des Produkts.';
       },
     });
   }

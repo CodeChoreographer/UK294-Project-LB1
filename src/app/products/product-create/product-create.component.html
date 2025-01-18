@@ -1,7 +1,9 @@
 <div class="product-create-container">
   <h2>Produkt erstellen</h2>
 
-  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+  @if (errorMessage) {
+    <div class="error">{{ errorMessage }}</div>
+  }
 
   <form (ngSubmit)="onSubmit()" #productForm="ngForm">
     <label for="sku">SKU</label>
@@ -57,14 +59,17 @@
       required
     />
 
-    <label for="categoryId">Kategorie-ID</label>
-    <input
-      type="number"
+    <label for="categoryId">Kategorie</label>
+    <select
       id="categoryId"
       name="categoryId"
       [(ngModel)]="productData.categoryId"
       required
-    />
+    >
+      @for (category of categories; track category.id) {
+        <option [value]="category.id">{{ category.name }}</option>
+      }
+    </select>
 
     <label for="active">Aktiv?</label>
     <input

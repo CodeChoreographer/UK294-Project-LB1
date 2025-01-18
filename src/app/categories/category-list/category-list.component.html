@@ -1,9 +1,11 @@
 <div class="category-list-container">
   <h2>Kategorien</h2>
 
-  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+  @if (errorMessage) {
+    <div class="error">{{ errorMessage }}</div>
+  }
 
-  <div *ngIf="categories.length > 0; else noCategories">
+  @if (categories.length > 0) {
     <table>
       <thead>
       <tr>
@@ -13,18 +15,18 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let category of categories">
-        <td>{{ category.id }}</td>
-        <td>{{ category.name }}</td>
-        <td>
-          <button (click)="editCategory(category.id)">Kategorie bearbeiten</button>
-        </td>
-      </tr>
+        @for (category of categories; track category.id) {
+          <tr>
+            <td>{{ category.id }}</td>
+            <td>{{ category.name }}</td>
+            <td>
+              <button (click)="editCategory(category.id)">Kategorie bearbeiten</button>
+            </td>
+          </tr>
+        }
       </tbody>
     </table>
-  </div>
-
-  <ng-template #noCategories>
+  } @else {
     <p>Keine Kategorien verfügbar.</p>
-  </ng-template>
+  }
 </div>

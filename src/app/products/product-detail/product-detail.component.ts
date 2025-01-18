@@ -1,16 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../../shared/services/product.service';
-import {CurrencyPipe, NgIf} from '@angular/common';
+import {CurrencyPipe} from '@angular/common';
 
 @Component({
   selector: 'app-product-detail',
   templateUrl: './product-detail.component.html',
-  styleUrls: ['./product-detail.component.scss'],
   imports: [
-    CurrencyPipe,
-    NgIf
-  ]
+    CurrencyPipe
+  ],
+  styleUrls: ['./product-detail.component.scss']
 })
 export class ProductDetailComponent implements OnInit {
   product: any = null;

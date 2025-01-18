@@ -1,9 +1,11 @@
 <div class="product-list-container">
   <h2>Produktliste</h2>
 
-  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+  @if (errorMessage) {
+    <div class="error">{{ errorMessage }}</div>
+  }
 
-  <div *ngIf="products.length > 0; else noProducts">
+  @if (products.length > 0) {
     <table>
       <thead>
       <tr>
@@ -15,19 +17,18 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let product of products" (click)="goToProductDetail(product.id)">
-        <td>{{ product.sku }}</td>
-        <td>{{ product.name }}</td>
-        <td><img [src]="product.image" alt="{{ product.name }}" width="50" /></td>
-        <td>{{ product.price | currency }}</td>
-        <td>{{ product.stock }}</td>
-      </tr>
-
+        @for (product of products; track product.id) {
+          <tr (click)="goToProductDetail(product.id)">
+            <td>{{ product.sku }}</td>
+            <td>{{ product.name }}</td>
+            <td><img [src]="product.image" alt="{{ product.name }}" width="50" /></td>
+            <td>{{ product.price | currency: 'CHF ' }}</td>
+            <td>{{ product.stock }}</td>
+          </tr>
+        }
       </tbody>
     </table>
-  </div>
-
-  <ng-template #noProducts>
+  } @else {
     <p>Keine Produkte verfügbar.</p>
-  </ng-template>
+  }
 </div>

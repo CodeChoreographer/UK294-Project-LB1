@@ -2,7 +2,9 @@
   <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
     <h2>Registrierung</h2>
 
-    <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+    @if (errorMessage) {
+      <div class="error">{{ errorMessage }}</div>
+    }
 
     <label for="firstName">Vorname</label>
     <input
