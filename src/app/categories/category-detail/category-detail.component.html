@@ -1,0 +1,15 @@
+<div class="category-detail-container">
+  <h2>Kategorie-Details</h2>
+
+  @if (errorMessage) {
+    <div class="error">{{ errorMessage }}</div>
+  }
+
+  @if (categoryData) {
+    <p><strong>ID:</strong> {{ categoryData.id }}</p>
+    <p><strong>Name:</strong> {{ categoryData.name }}</p>
+    <p><strong>Status:</strong> {{ categoryData.active ? 'Aktiv' : 'Inaktiv' }}</p>
+  } @else {
+    <p>Keine Kategorie-Daten verfügbar.</p>
+  }
+</div>

@@ -14,16 +14,23 @@
         <th>Bild</th>
         <th>Preis</th>
         <th>Verfügbarkeit</th>
+        <th>Aktionen</th>
       </tr>
       </thead>
       <tbody>
         @for (product of products; track product.id) {
-          <tr (click)="goToProductDetail(product.id)">
+          <tr>
             <td>{{ product.sku }}</td>
             <td>{{ product.name }}</td>
             <td><img [src]="product.image" alt="{{ product.name }}" width="50" /></td>
             <td>{{ product.price | currency: 'CHF ' }}</td>
             <td>{{ product.stock }}</td>
+            <td>
+              <button (click)="viewDetails(product.id)">Details anzeigen</button>
+              @if (isAdmin) {
+                <button (click)="editProduct(product.id)">Produkt bearbeiten</button>
+              }
+            </td>
           </tr>
         }
       </tbody>
