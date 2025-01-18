@@ -1,40 +1,50 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './users/login/login.component';
-import { RegisterComponent } from './users/register/register.component';
-import { ProductListComponent } from './products/product-list/product-list.component';
-import { ProductDetailComponent } from './products/product-detail/product-detail.component';
-import { ProductCreateComponent } from './products/product-create/product-create.component';
-import { CategoryListComponent } from './categories/category-list/category-list.component';
-import { CategoryCreateComponent } from './categories/category-create/category-create.component';
-import { CategoryEditComponent } from './categories/category-edit/category-edit.component';
-import { UserListComponent } from './users/user-list/user-list.component';
-import { UserPromoteComponent } from './users/user-promote/user-promote.component';
-import {ProductEditComponent} from './products/product-edit/product-edit.component';
-import {CategoryDetailComponent} from './categories/category-detail/category-detail.component';
-
 
 export const appRoutes: Routes = [
   { path: '', redirectTo: '/products', pathMatch: 'full' }, // Standardroute
-  { path: 'users/login', component: LoginComponent }, // Login-Seite
-  { path: 'users/register', component: RegisterComponent }, // Registrierung
-  { path: 'users', component: UserListComponent }, // Benutzerliste (nur Admins)
-  { path: 'users/promote', component: UserPromoteComponent }, // Benutzer zu Admins befördern
-  { path: 'products', component: ProductListComponent }, // Produktliste
-  { path: 'products/create', component: ProductCreateComponent }, // Produkt erstellen
-  { path: 'products/:id', component: ProductDetailComponent }, // Produktdetails
-  { path: 'products/edit/:id', component: ProductEditComponent }, // Produktbearbeitung
-  { path: 'categories', component: CategoryListComponent }, // Kategorienliste
-  { path: 'categories/create', component: CategoryCreateComponent }, // Kategorie erstellen
-  { path: 'categories/:id/products', component: ProductListComponent }, // Produkte in einer Kategorie
-  { path: 'categories/:id', component: CategoryDetailComponent }, // Kategorie anzeigen
-  { path: 'categories/edit/:id', component: CategoryEditComponent }, // Kategorie bearbeiten
-  { path: '**', redirectTo: '/products' }, // Fallback für ungültige Routen
+  {
+    path: 'users',
+    children: [
+      { path: 'login', loadComponent: () => import('./users/login/login.component').then(m => m.LoginComponent) },
+      { path: 'register', loadComponent: () => import('./users/register/register.component').then(m => m.RegisterComponent) },
+      { path: '', loadComponent: () => import('./users/user-list/user-list.component').then(m => m.UserListComponent) },
+      { path: 'promote', loadComponent: () => import('./users/user-promote/user-promote.component').then(m => m.UserPromoteComponent) },
+    ],
+  },
+  {
+    path: 'products',
+    children: [
+      { path: '', loadComponent: () => import('./products/product-list/product-list.component').then(m => m.ProductListComponent) },
+      { path: 'create', loadComponent: () => import('./products/product-create/product-create.component').then(m => m.ProductCreateComponent) },
+      { path: ':id', loadComponent: () => import('./products/product-detail/product-detail.component').then(m => m.ProductDetailComponent) },
+      { path: 'edit/:id', loadComponent: () => import('./products/product-edit/product-edit.component').then(m => m.ProductEditComponent) },
+    ],
+  },
+  {
+    path: 'categories',
+    children: [
+      { path: '', loadComponent: () => import('./categories/category-list/category-list.component').then(m => m.CategoryListComponent) },
+      { path: 'create', loadComponent: () => import('./categories/category-create/category-create.component').then(m => m.CategoryCreateComponent) },
+      { path: ':id', loadComponent: () => import('./categories/category-detail/category-detail.component').then(m => m.CategoryDetailComponent) },
+      { path: 'edit/:id', loadComponent: () => import('./categories/category-edit/category-edit.component').then(m => m.CategoryEditComponent) },
+      { path: ':id/products', loadComponent: () => import('./products/product-list/product-list.component').then(m => m.ProductListComponent) },
+    ],
+  },
+  {
+    path: '403',
+    loadComponent: () => import('./error-page/error-page.component').then(m => m.ErrorPageComponent),
+    data: { errorCode: '403', errorMessage: 'Zugriff verweigert' },
+  },
+  {
+    path: '**',
+    loadComponent: () => import('./error-page/error-page.component').then(m => m.ErrorPageComponent),
+    data: { errorCode: '404', errorMessage: 'Seite nicht gefunden' },
+  },
 ];
 
-// wird benötigt, um die Datei als Modul zu definieren, damit die Routen funktionieren
 @NgModule({
-  imports: [RouterModule.forRoot(appRoutes)], //initialisiert die Routen
+  imports: [RouterModule.forRoot(appRoutes)],
   exports: [RouterModule],
 })
 export class AppRoutesModule {}
