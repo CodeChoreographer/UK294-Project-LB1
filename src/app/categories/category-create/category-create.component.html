@@ -1,10 +1,11 @@
 <div class="category-create-container">
   <h2>Kategorie erstellen</h2>
 
-  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+  @if (errorMessage) {
+    <div class="error">{{ errorMessage }}</div>
+  }
 
   <form (ngSubmit)="onSubmit()" #categoryForm="ngForm">
-    <!-- Name der Kategorie -->
     <label for="name">Name der Kategorie</label>
     <input
       type="text"
@@ -19,7 +20,7 @@
       <option [value]="true">Aktiv</option>
       <option [value]="false">Inaktiv</option>
     </select>
-<p></p>
+    <p></p>
     <button type="submit" [disabled]="!categoryForm.valid">Kategorie erstellen</button>
   </form>
 </div>

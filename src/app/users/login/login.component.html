@@ -20,7 +20,9 @@
       required
     />
 
-    <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+    @if (errorMessage) {
+      <div class="error">{{ errorMessage }}</div>
+    }
 
     <button type="submit" [disabled]="!loginForm.valid">Anmelden</button>
   </form>

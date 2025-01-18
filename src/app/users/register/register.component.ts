@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../shared/services/auth.service';
 import { FormsModule } from '@angular/forms';
-import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-register',
@@ -10,7 +9,6 @@ import { NgIf } from '@angular/common';
   styleUrls: ['./register.component.scss'],
   imports: [
     FormsModule,
-    NgIf,
   ],
 })
 export class RegisterComponent {

@@ -1,18 +1,18 @@
 <div class="product-detail-container">
   <h2>Produktdetails</h2>
 
-  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+  @if (errorMessage) {
+    <div class="error">{{ errorMessage }}</div>
+  }
 
-  <div *ngIf="product">
+  @if (product) {
     <img [src]="product.image" alt="{{ product.name }}" class="product-image" />
     <h3>{{ product.name }}</h3>
     <p><strong>Beschreibung:</strong> {{ product.description }}</p>
-    <p><strong>Preis:</strong> {{ product.price | currency }}</p>
+    <p><strong>Preis:</strong> {{ product.price | currency: "CHF " }}</p>
     <p><strong>Verfügbarkeit:</strong> {{ product.stock }}</p>
     <p><strong>Kategorie:</strong> {{ product.category?.name }}</p>
-  </div>
-
-  <div *ngIf="!product && !errorMessage">
-    <p>Produktinformationen werden geladen...</p>
-  </div>
+  } @if (!errorMessage) {
+  <p>Produktinformationen werden geladen...</p>
+}
 </div>
