@@ -3,12 +3,14 @@ import { Router } from '@angular/router';
 import { ProductService } from '../../shared/services/product.service';
 import { CategoryService } from '../../shared/services/category.service';
 import {FormsModule} from '@angular/forms';
+import {MatSlideToggle} from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-product-create',
   templateUrl: './product-create.component.html',
   imports: [
-    FormsModule
+    FormsModule,
+    MatSlideToggle
   ],
   styleUrls: ['./product-create.component.scss']
 })
@@ -21,7 +23,7 @@ export class ProductCreateComponent implements OnInit {
     description: '',
     price: 0,
     stock: 0,
-    categoryId: 0,
+    categoryId: '',
   };
 
   categories: any[] = [];
