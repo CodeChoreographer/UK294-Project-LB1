@@ -32,6 +32,13 @@ export const appRoutes: Routes = [
     ],
   },
   {
+    path: 'users',
+    children: [
+      { path: '', loadComponent: () => import('./users/user-list/user-list.component').then(m => m.UserListComponent) },
+    ],
+  },
+
+  {
     path: '403',
     loadComponent: () => import('./error-page/error-page.component').then(m => m.ErrorPageComponent),
     data: { errorCode: '403', errorMessage: 'Zugriff verweigert' },
@@ -41,6 +48,7 @@ export const appRoutes: Routes = [
     loadComponent: () => import('./error-page/error-page.component').then(m => m.ErrorPageComponent),
     data: { errorCode: '404', errorMessage: 'Seite nicht gefunden' },
   },
+
 ];
 
 @NgModule({

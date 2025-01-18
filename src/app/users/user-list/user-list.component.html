@@ -1,1 +1,45 @@
-<p>user-list works!</p>
+<div class="user-list-container">
+  <h2>Benutzerliste</h2>
+
+  @if (errorMessage) {
+    <div class="error">{{ errorMessage }}</div>
+  }
+
+  @if (users.length > 0) {
+    <table>
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Vorname</th>
+        <th>Nachname</th>
+        <th>Adresse</th>
+        <th>Telefon</th>
+        <th>E-Mail</th>
+        <th>Aktionen</th>
+      </tr>
+      </thead>
+      <tbody>
+        @for (user of users; track user.id) {
+          <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.firstName }}</td>
+            <td>{{ user.lastName }}</td>
+            <td>{{ user.street }}, {{ user.zip }} {{ user.city }} ({{ user.country }})</td>
+            <td>
+              Telefon: {{ user.phone }} <br />
+              Mobil: {{ user.mobilePhone }}
+            </td>
+            <td>{{ user.email }}</td>
+            <td>
+              @if (!user.isAdmin) {
+                <button (click)="promoteUser(user.id)">Zum Admin befördern</button>
+              }
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  } @else {
+    <p>Keine Benutzer verfügbar.</p>
+  }
+</div>
