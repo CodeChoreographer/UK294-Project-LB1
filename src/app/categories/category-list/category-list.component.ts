@@ -17,7 +17,7 @@ export class CategoryListComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadCategories();
-    this.checkAdminStatus(); // Admin-Status prüfen
+    this.checkAdminStatus();
   }
 
   loadCategories(): void {
@@ -34,7 +34,7 @@ export class CategoryListComponent implements OnInit {
 
   checkAdminStatus(): void {
     const token = localStorage.getItem('authToken');
-    this.isAdmin = !!token; // Simulierte Adminprüfung
+    this.isAdmin = !!token;
   }
 
   editCategory(id: number): void {
