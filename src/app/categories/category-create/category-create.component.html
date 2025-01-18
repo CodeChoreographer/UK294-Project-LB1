@@ -15,12 +15,15 @@
       required
     />
 
-    <label for="active">Status der Kategorie</label>
-    <select id="active" name="active" [(ngModel)]="categoryData.active">
-      <option [value]="true">Aktiv</option>
-      <option [value]="false">Inaktiv</option>
-    </select>
-    <p></p>
+    <div class="mat-slide-toggle-container">
+      <label class="toggle-label">Aktiv?</label>
+      <mat-slide-toggle id="active"
+                        [(ngModel)]="categoryData.active"
+                        name="active">
+
+      </mat-slide-toggle>
+    </div>
+
     <button type="submit" [disabled]="!categoryForm.valid">Kategorie erstellen</button>
   </form>
 </div>

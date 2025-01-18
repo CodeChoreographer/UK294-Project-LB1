@@ -31,13 +31,15 @@
           required
         />
 
-        <label for="active">Aktiv?</label>
-        <input
-          type="checkbox"
-          id="active"
-          [(ngModel)]="categoryData.active"
-          name="active"
-        />
+        <div class="mat-slide-toggle-container">
+          <label class="toggle-label">Aktiv?</label>
+          <mat-slide-toggle id="active"
+                            [(ngModel)]="categoryData.active"
+                            name="active">
+
+          </mat-slide-toggle>
+        </div>
+
 
         <button type="submit">Änderungen speichern</button>
       </form>

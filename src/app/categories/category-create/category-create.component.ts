@@ -2,12 +2,14 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CategoryService } from '../../shared/services/category.service';
 import {FormsModule} from '@angular/forms';
+import {MatSlideToggle} from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-category-create',
   templateUrl: './category-create.component.html',
   imports: [
-    FormsModule
+    FormsModule,
+    MatSlideToggle
   ],
   styleUrls: ['./category-create.component.scss']
 })

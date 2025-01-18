@@ -30,7 +30,6 @@
       id="image"
       name="image"
       [(ngModel)]="productData.image"
-      required
     />
 
     <label for="description">Beschreibung</label>
@@ -71,13 +70,14 @@
       }
     </select>
 
-    <label for="active">Aktiv?</label>
-    <input
-      type="checkbox"
-      id="active"
-      name="active"
-      [(ngModel)]="productData.active"
-    />
+    <div class="mat-slide-toggle-container">
+    <label class="toggle-label">Aktiv?</label>
+    <mat-slide-toggle id="active"
+                      [(ngModel)]="productData.active"
+                      name="active">
+
+    </mat-slide-toggle>
+  </div>
 
     <button type="submit" [disabled]="!productForm.valid">Produkt erstellen</button>
   </form>

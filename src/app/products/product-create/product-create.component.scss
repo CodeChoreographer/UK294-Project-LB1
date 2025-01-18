@@ -3,6 +3,16 @@
   flex-direction: column;
   align-items: center;
 
+  .mat-slide-toggle-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0;
+
+    .toggle-label {
+      margin-bottom: 8px;
+    }
+  }
   select {
     margin: 10px 0;
   }

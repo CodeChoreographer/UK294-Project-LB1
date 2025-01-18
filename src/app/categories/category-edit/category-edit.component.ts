@@ -3,13 +3,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CategoryService } from '../../shared/services/category.service';
 import {FormsModule} from '@angular/forms';
 import {CurrencyPipe} from '@angular/common';
+import {MatSlideToggle} from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-category-edit',
   templateUrl: './category-edit.component.html',
   imports: [
     FormsModule,
-    CurrencyPipe
+    CurrencyPipe,
+    MatSlideToggle
   ],
   styleUrls: ['./category-edit.component.scss']
 })
