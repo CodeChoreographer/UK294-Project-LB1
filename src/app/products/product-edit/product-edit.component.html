@@ -1,1 +1,51 @@
-<p>product-edit works!</p>
+<div class="product-edit-container">
+  <h2>Produkt bearbeiten</h2>
+
+  @if (errorMessage) {
+    <div class="error">{{ errorMessage }}</div>
+  }
+
+  @if (productData) {
+    <form (ngSubmit)="onSave()">
+      <label for="sku">SKU</label>
+      <input type="text" id="sku" [(ngModel)]="productData.sku" name="sku" required />
+
+      <label for="name">Name</label>
+      <input type="text" id="name" [(ngModel)]="productData.name" name="name" required />
+
+      <label for="image">Bild-URL</label>
+      <input type="text" id="image" [(ngModel)]="productData.image" name="image" required />
+
+      <label for="description">Beschreibung</label>
+      <textarea id="description" [(ngModel)]="productData.description" name="description" required></textarea>
+
+      <label for="price">Preis</label>
+      <input type="number" id="price" [(ngModel)]="productData.price" name="price" required />
+
+      <label for="stock">Lagerbestand</label>
+      <input type="number" id="stock" [(ngModel)]="productData.stock" name="stock" required />
+
+      <label for="categoryId">Kategorie</label>
+      <select id="categoryId" [(ngModel)]="productData.category.id" name="categoryId" required>
+        @for (category of categories; track category.id) {
+          <option [value]="category.id">{{ category.name }}</option>
+        }
+      </select>
+
+      <div class="mat-slide-toggle-container">
+        <label class="toggle-label">Aktiv?</label>
+        <mat-slide-toggle id="active"
+                          [(ngModel)]="productData.active"
+                          name="active">
+
+        </mat-slide-toggle>
+      </div>
+
+      <button type="submit" class="save-button">Änderungen speichern</button>
+      <button (click)="onDelete()" class="delete-button">Produkt löschen</button>
+
+    </form>
+  } @else {
+    <p>Keine Produktdaten verfügbar.</p>
+  }
+</div>

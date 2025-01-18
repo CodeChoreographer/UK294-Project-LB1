@@ -14,13 +14,13 @@ import {CurrencyPipe} from '@angular/common';
 export class ProductListComponent implements OnInit {
   products: any[] = [];
   errorMessage: string = '';
-  isAdmin: boolean = false; // Admin-Status
+  isAdmin: boolean = false;
 
   constructor(private productService: ProductService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadProducts();
-    this.checkAdminStatus(); // Admin-Status prüfen
+    this.checkAdminStatus();
   }
 
   loadProducts(): void {
@@ -37,7 +37,7 @@ export class ProductListComponent implements OnInit {
 
   checkAdminStatus(): void {
     const token = localStorage.getItem('authToken');
-    this.isAdmin = !!token; // Simulierte Adminprüfung
+    this.isAdmin = !!token;
   }
 
   viewDetails(id: number): void {

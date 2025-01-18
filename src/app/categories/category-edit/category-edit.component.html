@@ -6,45 +6,33 @@
   }
 
   @if (categoryData) {
-    <h3>Name: {{ categoryData.name }}</h3>
-    <p>Status: {{ categoryData.active ? 'Aktiv' : 'Inaktiv' }}</p>
+    <form (ngSubmit)="onSave()">
+      <label for="name">Name der Kategorie</label>
+      <input type="text" id="name" [(ngModel)]="categoryData.name" name="name" required />
 
-    <h3>Produkte in dieser Kategorie</h3>
-    <ul>
-      @for (product of categoryData.products; track product.id) {
-        <li>
-          <strong>{{ product.name }}</strong>
-          (SKU: {{ product.sku }}, Preis: {{ product.price | currency: 'CHF ' }}, Lagerbestand: {{ product.stock }})
-        </li>
-      }
-    </ul>
+      <label>Status</label>
+      <div class="mat-slide-toggle-container">
+        <label class="toggle-label">Aktiv?</label>
+        <mat-slide-toggle id="active"
+                          [(ngModel)]="categoryData.active"
+                          name="active">
 
-    @if (isAdmin) {
-      <h3>Kategorie bearbeiten</h3>
-      <form (ngSubmit)="onSave()">
-        <label for="name">Name der Kategorie</label>
-        <input
-          type="text"
-          id="name"
-          [(ngModel)]="categoryData.name"
-          name="name"
-          required
-        />
+        </mat-slide-toggle>
+      </div>
 
-        <div class="mat-slide-toggle-container">
-          <label class="toggle-label">Aktiv?</label>
-          <mat-slide-toggle id="active"
-                            [(ngModel)]="categoryData.active"
-                            name="active">
+      <label>Produkte in dieser Kategorie:</label>
+      <ul>
+        @for (product of categoryData.products; track product.id) {
+          <li>{{ product.name }} (SKU: {{ product.sku }}, Preis: {{ product.price | currency: 'CHF ' }}, Lager: {{ product.stock }})</li>
+        }
+      </ul>
 
-          </mat-slide-toggle>
-        </div>
-
-
+      <div class="button-group">
         <button type="submit">Änderungen speichern</button>
-      </form>
-
-      <button (click)="onDelete()">Kategorie löschen</button>
-    }
+        <button type="button" (click)="onDelete()">Kategorie löschen</button>
+      </div>
+    </form>
+  } @else {
+    <p>Keine Kategorie-Daten verfügbar.</p>
   }
 </div>
