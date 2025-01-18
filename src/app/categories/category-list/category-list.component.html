@@ -20,7 +20,11 @@
             <td>{{ category.id }}</td>
             <td>{{ category.name }}</td>
             <td>
-              <button (click)="editCategory(category.id)">Kategorie bearbeiten</button>
+              <button (click)="viewDetails(category.id)">Details anzeigen</button>
+
+              @if (isAdmin) {
+                <button (click)="editCategory(category.id)">Kategorie bearbeiten</button>
+              }
             </td>
           </tr>
         }

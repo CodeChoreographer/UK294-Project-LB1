@@ -10,6 +10,9 @@ import { CategoryCreateComponent } from './categories/category-create/category-c
 import { CategoryEditComponent } from './categories/category-edit/category-edit.component';
 import { UserListComponent } from './users/user-list/user-list.component';
 import { UserPromoteComponent } from './users/user-promote/user-promote.component';
+import {ProductEditComponent} from './products/product-edit/product-edit.component';
+import {CategoryDetailComponent} from './categories/category-detail/category-detail.component';
+
 
 export const appRoutes: Routes = [
   { path: '', redirectTo: '/products', pathMatch: 'full' }, // Standardroute
@@ -19,11 +22,13 @@ export const appRoutes: Routes = [
   { path: 'users/promote', component: UserPromoteComponent }, // Benutzer zu Admins befördern
   { path: 'products', component: ProductListComponent }, // Produktliste
   { path: 'products/create', component: ProductCreateComponent }, // Produkt erstellen
-  { path: 'products/:id', component: ProductDetailComponent }, // Produktdetails und Bearbeitung
+  { path: 'products/:id', component: ProductDetailComponent }, // Produktdetails
+  { path: 'products/edit/:id', component: ProductEditComponent }, // Produktbearbeitung
   { path: 'categories', component: CategoryListComponent }, // Kategorienliste
   { path: 'categories/create', component: CategoryCreateComponent }, // Kategorie erstellen
   { path: 'categories/:id/products', component: ProductListComponent }, // Produkte in einer Kategorie
-  { path: 'categories/:id', component: CategoryEditComponent }, // Kategoriedetails und Bearbeitung
+  { path: 'categories/:id', component: CategoryDetailComponent }, // Kategorie anzeigen
+  { path: 'categories/edit/:id', component: CategoryEditComponent }, // Kategorie bearbeiten
   { path: '**', redirectTo: '/products' }, // Fallback für ungültige Routen
 ];
 

@@ -1,24 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { ProductService } from '../../shared/services/product.service';
+import { Router } from '@angular/router';
 import {CurrencyPipe} from '@angular/common';
 
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.scss'],
   imports: [
     CurrencyPipe
-  ]
+  ],
+  styleUrls: ['./product-list.component.scss']
 })
 export class ProductListComponent implements OnInit {
   products: any[] = [];
   errorMessage: string = '';
+  isAdmin: boolean = false; // Admin-Status
 
   constructor(private productService: ProductService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadProducts();
+    this.checkAdminStatus(); // Admin-Status prüfen
   }
 
   loadProducts(): void {
@@ -29,11 +31,20 @@ export class ProductListComponent implements OnInit {
       error: (err) => {
         this.errorMessage = 'Fehler beim Laden der Produkte.';
         console.error(err);
-      },
+      }
     });
   }
 
-  goToProductDetail(id: number): void {
+  checkAdminStatus(): void {
+    const token = localStorage.getItem('authToken');
+    this.isAdmin = !!token; // Simulierte Adminprüfung
+  }
+
+  viewDetails(id: number): void {
     this.router.navigate(['/products', id]);
+  }
+
+  editProduct(id: number): void {
+    this.router.navigate(['/products/edit', id]);
   }
 }
