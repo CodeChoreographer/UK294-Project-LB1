@@ -1,7 +1,13 @@
 <div class="error-page-container">
-  <h1>{{ errorCode }} - {{ errorMessage }}</h1>
-  <p>Die angeforderte Seite konnte nicht gefunden werden oder ist nicht verfügbar.</p>
-  <iframe src="https://giphy.com/embed/dhsBE8zk1xd9wUE8yS" width="480" height="216" style="" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
- <p></p>
-  <a routerLink="/">Zur Startseite</a>
+  <h1>Fehler {{ errorCode }}</h1>
+  <p>{{ errorMessage }}</p>
+
+  @if (errorCode === '404') {
+    <iframe src="https://giphy.com/embed/dhsBE8zk1xd9wUE8yS" width="480" height="216" style=""  class="giphy-embed" allowFullScreen></iframe>
+    <button (click)="navigateTo('/products')" class="button">Zur Produktübersicht</button>
+  } @else if (errorCode === '403') {
+    <iframe src="https://giphy.com/embed/S6sZaHdqsGYFO" width="480" height="312" style="" class="giphy-embed" allowFullScreen></iframe><p></p>
+    <button (click)="navigateTo('/users/login')" class="button">Zum Login</button>
+    <button (click)="navigateTo('/products')" class="button">Zur Produktübersicht</button>
+  }
 </div>
