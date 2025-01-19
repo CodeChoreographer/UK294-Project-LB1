@@ -35,9 +35,7 @@ export class LoginComponent {
       },
     });
   }
-  /**
-   * Navigiert zur Registrierungsseite
-   */
+
   navigateToRegister(): void {
     this.router.navigate(['/users/register']);
   }
