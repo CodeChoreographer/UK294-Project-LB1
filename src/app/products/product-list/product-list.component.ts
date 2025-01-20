@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../shared/services/product.service';
 import { Router } from '@angular/router';
 import {CurrencyPipe} from '@angular/common';
+import {AuthService} from '../../shared/services/auth.service';
+import {jwtDecode} from 'jwt-decode';
 
 @Component({
   selector: 'app-product-list',
@@ -16,7 +18,7 @@ export class ProductListComponent implements OnInit {
   errorMessage: string = '';
   isAdmin: boolean = false;
 
-  constructor(private productService: ProductService, private router: Router) {}
+  constructor(private productService: ProductService, private router: Router, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.loadProducts();
@@ -37,7 +39,17 @@ export class ProductListComponent implements OnInit {
 
   checkAdminStatus(): void {
     const token = localStorage.getItem('authToken');
-    this.isAdmin = !!token;
+    if (token) {
+      try {
+        const decodedToken: any = jwtDecode(token);
+        this.isAdmin = decodedToken?.roles?.includes('admin');
+      } catch (error) {
+        console.error('Fehler beim Decodieren des Tokens:', error);
+        this.isAdmin = false;
+      }
+    } else {
+      this.isAdmin = false;
+    }
   }
 
   viewDetails(id: number): void {

@@ -19,12 +19,11 @@ export class UserListComponent implements OnInit {
   loadUsers(): void {
     this.userService.getUsers().subscribe({
       next: (data) => {
-        console.log('Geladene Benutzer:', data);
         this.users = data;
       },
       error: (err) => {
         this.errorMessage = 'Fehler beim Laden der Benutzer.';
-        console.error(err);
+        console.error('Backend-Fehler:', err);
       },
     });
   }

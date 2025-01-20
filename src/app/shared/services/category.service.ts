@@ -23,27 +23,11 @@ export class CategoryService {
   }
 
   getCategories(): Observable<any[]> {
-    const token = localStorage.getItem('authToken');
-    if (!token) {
-      throw new Error('Authentifizierungs-Token fehlt');
-    }
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-    });
-
-    return this.http.get<any[]>(this.apiUrl, { headers });
+    return this.http.get<any[]>(`${this.apiUrl}`);
   }
 
   getCategoryById(id: number): Observable<any> {
-    const token = localStorage.getItem('authToken');
-    if (!token) {
-      throw new Error('Authentifizierungs-Token fehlt');
-    }
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-    });
-
-    return this.http.get<any>(`${this.apiUrl}/${id}`, { headers });
+     return this.http.get<any>(`${this.apiUrl}/${id}`);
   }
 
   updateCategory(categoryData: any): Observable<any> {
@@ -55,7 +39,6 @@ export class CategoryService {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     });
-
     return this.http.put(`${this.apiUrl}/${categoryData.id}`, categoryData, {
       headers,
     });

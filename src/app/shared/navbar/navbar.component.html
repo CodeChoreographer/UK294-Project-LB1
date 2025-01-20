@@ -1,0 +1,22 @@
+<nav class="navbar">
+  <ul class="menu">
+    <li><a routerLink="/products">Produkte</a></li>
+    @if (isAdmin) {
+      <li><a routerLink="/products/create">Produkt erstellen</a></li>    }
+    <li><a routerLink="/categories">Kategorien</a></li>
+    @if (isAdmin) {
+      <li><a routerLink="/categories/create">Kategorie erstellen</a></li>
+    }
+
+    @if (isAdmin) {
+      <li><a routerLink="/users">Benutzerverwaltung</a></li>
+    }
+
+    @if (!isAuthenticated) {
+      <li><a routerLink="/users/login">Login</a></li>
+      <li><a routerLink="/users/register">Registrieren</a></li>
+    } @else {
+      <li><a (click)="logout()">Logout</a></li>
+    }
+  </ul>
+</nav>
