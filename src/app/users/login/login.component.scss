@@ -1,77 +1,52 @@
 .login-container {
   max-width: 400px;
-  margin: 50px auto;
-  padding: 20px;
+  margin: 5px auto;
+  padding: 5px;
   border: 1px solid #ddd;
   border-radius: 8px;
   background-color: #f9f9f9;
-}
 
-h2 {
-  text-align: center;
-  margin-bottom: 20px;
-}
+  h2 {
+    margin-top: 10px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
 
-label {
-  display: block;
-  font-weight: bold;
-  margin-bottom: 5px;
-}
+  mat-form-field {
+    width: 100%;
+    margin-bottom: 0;
+  }
 
-input {
-  width: 100%;
-  padding: 8px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 16px;
-}
+  button {
+    width: 100%;
+    margin-top: 5px;
+    background-color: #007bff;
+    color: white;
 
-button {
-  width: 100%;
-  padding: 10px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
+    &:hover:enabled {
+      background-color: #0056b3;
+    }
 
-button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
+    &[disabled] {
+      background-color: #ccc;
+      color: #666 ;
+      cursor: not-allowed;
+      pointer-events: all;
+    }
+  }
 
-button:hover:enabled {
-  background-color: #0056b3;
-}
 
-.error-message {
-  color: red;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
+  .mat-mdc-form-field-error{
+    color: red;
+    font-size: large;
+    margin-bottom: 10px;
+    text-align: center;
+  }
 
-.loading-indicator {
-  color: blue;
-  font-style: italic;
-  margin-bottom: 10px;
-}
-
-.password-container {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 15px;
-}
-
-a {
-  color: #007bff;
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
+  p {
+    margin-top: 20px;
+    margin-bottom: 0;
+    text-align: center;
+    color: black;
+  }
 }

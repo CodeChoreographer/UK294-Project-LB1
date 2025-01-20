@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { CategoryService } from '../../shared/services/category.service';
 
 @Component({
@@ -12,6 +12,7 @@ export class CategoryDetailComponent implements OnInit {
   errorMessage: string = '';
 
   constructor(
+    private router: Router,
     private route: ActivatedRoute,
     private categoryService: CategoryService
   ) {}
@@ -31,5 +32,9 @@ export class CategoryDetailComponent implements OnInit {
         console.error(err);
       }
     });
+  }
+
+  goBackToCategories(): void {
+    this.router.navigate(['/categories']);
   }
 }

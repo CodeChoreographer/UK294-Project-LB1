@@ -4,13 +4,25 @@ import { ProductService } from '../../shared/services/product.service';
 import { CategoryService } from '../../shared/services/category.service';
 import {FormsModule} from '@angular/forms';
 import {MatSlideToggle} from '@angular/material/slide-toggle';
+import {MatButton} from '@angular/material/button';
+import {MatOption} from '@angular/material/core';
+import {MatFormField, MatLabel, MatSelect} from '@angular/material/select';
+import {MatInput} from '@angular/material/input';
+import {MatTooltip} from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-product-create',
   templateUrl: './product-create.component.html',
   imports: [
     FormsModule,
-    MatSlideToggle
+    MatSlideToggle,
+    MatButton,
+    MatOption,
+    MatSelect,
+    MatLabel,
+    MatFormField,
+    MatInput,
+    MatTooltip
   ],
   styleUrls: ['./product-create.component.scss']
 })
@@ -62,5 +74,9 @@ export class ProductCreateComponent implements OnInit {
           err.error?.message || 'Fehler beim Erstellen des Produkts.';
       },
     });
+  }
+
+  goBackToProducts(): void {
+    this.router.navigate(['/products']);
   }
 }

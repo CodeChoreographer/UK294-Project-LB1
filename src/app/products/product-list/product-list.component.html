@@ -6,34 +6,47 @@
   }
 
   @if (products.length > 0) {
-    <table>
-      <thead>
-      <tr>
-        <th>SKU</th>
-        <th>Name</th>
-        <th>Bild</th>
-        <th>Preis</th>
-        <th>Verfügbarkeit</th>
-        <th>Aktionen</th>
-      </tr>
-      </thead>
-      <tbody>
-        @for (product of products; track product.id) {
-          <tr>
-            <td>{{ product.sku }}</td>
-            <td>{{ product.name }}</td>
-            <td><img [src]="product.image || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRR86GcFZfR0R7L_f47XxDAN6snSzvnEqaCvg&s'" alt="{{ product.name }}" width="50" /></td>
-            <td>{{ product.price | currency: 'CHF ' }}</td>
-            <td>{{ product.stock }}</td>
-            <td>
-              <button (click)="viewDetails(product.id)">Details anzeigen</button>
-              @if (isAdmin) {
-                <button (click)="editProduct(product.id)">Produkt bearbeiten</button>
-              }
-            </td>
-          </tr>
-        }
-      </tbody>
+    <table mat-table [dataSource]="products" class="mat-elevation-z8">
+
+      <ng-container matColumnDef="sku">
+        <th mat-header-cell *matHeaderCellDef> SKU </th>
+        <td mat-cell *matCellDef="let product"> {{ product.sku }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let product"> {{ product.name }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="image">
+        <th mat-header-cell *matHeaderCellDef> Bild </th>
+        <td mat-cell *matCellDef="let product">
+          <img [src]="product.image || 'https://mariawoerth.b-cdn.net/wp-content/uploads/2016/05/kein-bild.png'" alt="{{ product.name }}" width="50" />
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef> Preis </th>
+        <td mat-cell *matCellDef="let product"> {{ product.price | currency: 'CHF ' }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="stock">
+        <th mat-header-cell *matHeaderCellDef> Verfügbarkeit </th>
+        <td mat-cell *matCellDef="let product"> {{ product.stock }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Aktionen </th>
+        <td mat-cell *matCellDef="let product">
+          <button mat-raised-button color="primary" (click)="viewDetails(product.id)">Details</button>
+          @if (isAdmin) {
+            <button mat-raised-button color="accent" (click)="editProduct(product.id)">Bearbeiten</button>
+          }
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
   } @else {
     <p>Keine Produkte verfügbar.</p>

@@ -3,13 +3,22 @@ import { Router } from '@angular/router';
 import { CategoryService } from '../../shared/services/category.service';
 import {FormsModule} from '@angular/forms';
 import {MatSlideToggle} from '@angular/material/slide-toggle';
+import {MatFormField, MatLabel} from '@angular/material/form-field';
+import {MatInput} from '@angular/material/input';
+import {MatButton} from '@angular/material/button';
+import {MatTooltip} from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-category-create',
   templateUrl: './category-create.component.html',
   imports: [
     FormsModule,
-    MatSlideToggle
+    MatSlideToggle,
+    MatFormField,
+    MatInput,
+    MatButton,
+    MatLabel,
+    MatTooltip
   ],
   styleUrls: ['./category-create.component.scss']
 })
@@ -33,5 +42,8 @@ export class CategoryCreateComponent {
         console.error('API-Fehler:', err);
       },
     });
+  }
+  goBackToCategories(): void {
+    this.router.navigate(['/categories']);
   }
 }

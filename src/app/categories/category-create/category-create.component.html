@@ -5,25 +5,38 @@
     <div class="error">{{ errorMessage }}</div>
   }
 
-  <form (ngSubmit)="onSubmit()" #categoryForm="ngForm">
-    <label for="name">Name der Kategorie</label>
-    <input
-      type="text"
-      id="name"
-      name="name"
-      [(ngModel)]="categoryData.name"
-      required
-    />
+  <form (ngSubmit)="onSubmit()" #categoryForm="ngForm" class="form-container">
+    <mat-form-field appearance="fill">
+      <mat-label>Name der Kategorie</mat-label>
+      <input
+        matInput
+        type="text"
+        id="name"
+        name="name"
+        [(ngModel)]="categoryData.name"
+        required
+      />
+    </mat-form-field>
 
     <div class="mat-slide-toggle-container">
       <label class="toggle-label">Aktiv?</label>
-      <mat-slide-toggle id="active"
-                        [(ngModel)]="categoryData.active"
-                        name="active">
-
-      </mat-slide-toggle>
+      <mat-slide-toggle
+        id="active"
+        [(ngModel)]="categoryData.active"
+        name="active"
+      ></mat-slide-toggle>
     </div>
 
-    <button type="submit" [disabled]="!categoryForm.valid">Kategorie erstellen</button>
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="!categoryForm.valid"
+      matTooltip="Bitte füllen Sie alle Felder aus"
+      [matTooltipDisabled]="categoryForm.valid"
+    >
+      Kategorie erstellen
+    </button>
   </form>
+  <button mat-raised-button (click)="goBackToCategories()" class="back-button">Zurück zur Kategorieübersicht</button>
 </div>

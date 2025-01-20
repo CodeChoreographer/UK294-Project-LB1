@@ -1,15 +1,35 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../shared/services/product.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../../shared/services/auth.service';
 import {CurrencyPipe} from '@angular/common';
-import {AuthService} from '../../shared/services/auth.service';
-import {jwtDecode} from 'jwt-decode';
+import {
+  MatCell,
+  MatCellDef,
+  MatColumnDef,
+  MatHeaderCell,
+  MatHeaderCellDef,
+  MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef,
+  MatTable
+} from '@angular/material/table';
+import {MatButton} from '@angular/material/button';
 
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
   imports: [
-    CurrencyPipe
+    CurrencyPipe,
+    MatTable,
+    MatColumnDef,
+    MatHeaderCell,
+    MatHeaderCellDef,
+    MatCell,
+    MatCellDef,
+    MatButton,
+    MatHeaderRow,
+    MatRow,
+    MatRowDef,
+    MatHeaderRowDef
   ],
   styleUrls: ['./product-list.component.scss']
 })
@@ -18,18 +38,23 @@ export class ProductListComponent implements OnInit {
   errorMessage: string = '';
   isAdmin: boolean = false;
 
-  constructor(private productService: ProductService, private router: Router, private authService: AuthService) {}
+  displayedColumns: string[] = ['sku', 'name', 'image', 'price', 'stock', 'actions'];
+
+
+  constructor(
+    private productService: ProductService,
+    private router: Router,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.loadProducts();
-    this.checkAdminStatus();
+    this.isAdmin = this.authService.isAdmin();
   }
 
   loadProducts(): void {
     this.productService.getProducts().subscribe({
-      next: (data) => {
-        this.products = data;
-      },
+      next: (data) => (this.products = data),
       error: (err) => {
         this.errorMessage = 'Fehler beim Laden der Produkte.';
         console.error(err);
@@ -37,26 +62,15 @@ export class ProductListComponent implements OnInit {
     });
   }
 
-  checkAdminStatus(): void {
-    const token = localStorage.getItem('authToken');
-    if (token) {
-      try {
-        const decodedToken: any = jwtDecode(token);
-        this.isAdmin = decodedToken?.roles?.includes('admin');
-      } catch (error) {
-        console.error('Fehler beim Decodieren des Tokens:', error);
-        this.isAdmin = false;
-      }
-    } else {
-      this.isAdmin = false;
-    }
-  }
-
   viewDetails(id: number): void {
     this.router.navigate(['/products', id]);
   }
 
   editProduct(id: number): void {
-    this.router.navigate(['/products/edit', id]);
+    if (this.isAdmin) {
+      this.router.navigate(['/products/edit', id]);
+    } else {
+      console.error('Unzureichende Berechtigungen.');
+    }
   }
 }

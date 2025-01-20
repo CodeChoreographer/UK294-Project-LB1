@@ -6,29 +6,34 @@
   }
 
   @if (categories.length > 0) {
-    <table>
-      <thead>
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Aktionen</th>
-      </tr>
-      </thead>
-      <tbody>
-        @for (category of categories; track category.id) {
-          <tr>
-            <td>{{ category.id }}</td>
-            <td>{{ category.name }}</td>
-            <td>
-              <button (click)="viewDetails(category.id)">Details anzeigen</button>
+    <table mat-table [dataSource]="categories" class="mat-elevation-z8">
 
-              @if (isAdmin) {
-                <button (click)="editCategory(category.id)">Kategorie bearbeiten</button>
-              }
-            </td>
-          </tr>
-        }
-      </tbody>
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> ID </th>
+        <td mat-cell *matCellDef="let category"> {{ category.id }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let category"> {{ category.name }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Aktionen </th>
+        <td mat-cell *matCellDef="let category">
+          <button mat-raised-button color="primary" (click)="viewDetails(category.id)">
+            Details anzeigen
+          </button>
+          @if (isAdmin) {
+            <button mat-raised-button color="accent" (click)="editCategory(category.id)">
+              Bearbeiten
+            </button>
+          }
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
   } @else {
     <p>Keine Kategorien verfügbar.</p>
