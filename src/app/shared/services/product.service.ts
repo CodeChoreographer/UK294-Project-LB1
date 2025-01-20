@@ -28,13 +28,9 @@ export class ProductService {
   }
 
   getProductById(id: number): Observable<any> {
-    const token = localStorage.getItem('authToken');
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-    });
-
-    return this.http.get<any>(`https://294.cyrotech.ch/products/${id}`, {headers});
+    return this.http.get<any>(`${this.apiUrl}/${id}`);
   }
+
 
   updateProduct(productData: any): Observable<any> {
     const token = localStorage.getItem('authToken');

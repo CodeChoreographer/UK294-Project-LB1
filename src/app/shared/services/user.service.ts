@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class UserService {
-  private apiUrl = 'https://294.cyrotech.ch/users'; // URL zur API
+  private apiUrl = 'https://294.cyrotech.ch/users';
 
   constructor(private http: HttpClient) {}
 
@@ -19,7 +19,7 @@ export class UserService {
       Authorization: `Bearer ${token}`,
     });
 
-    return this.http.get<any[]>(this.apiUrl, { headers });
+    return this.http.get<any[]>(`${this.apiUrl}`, { headers });
   }
 
   promoteToAdmin(userId: number): Observable<any> {

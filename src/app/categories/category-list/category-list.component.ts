@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../../shared/services/category.service';
 import {Router, RouterLink} from '@angular/router';
+import {jwtDecode} from 'jwt-decode';
 
 @Component({
   selector: 'app-category-list',
@@ -34,7 +35,17 @@ export class CategoryListComponent implements OnInit {
 
   checkAdminStatus(): void {
     const token = localStorage.getItem('authToken');
-    this.isAdmin = !!token;
+    if (token) {
+      try {
+        const decodedToken: any = jwtDecode(token);
+        this.isAdmin = decodedToken?.roles?.includes('admin');
+      } catch (error) {
+        console.error('Fehler beim Decodieren des Tokens:', error);
+        this.isAdmin = false;
+      }
+    } else {
+      this.isAdmin = false;
+    }
   }
 
   editCategory(id: number): void {
