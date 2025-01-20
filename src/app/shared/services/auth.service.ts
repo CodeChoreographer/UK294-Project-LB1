@@ -57,11 +57,15 @@ export class AuthService {
   }
 
   isAdmin(): boolean {
-    const decodedToken = this.getDecodedToken();
-    if (!decodedToken || !decodedToken.roles) {
+    const token = localStorage.getItem('authToken');
+    if (!token) return false;
+    try {
+      const decodedToken: any = jwtDecode(token);
+      return decodedToken?.roles?.includes('admin');
+    } catch (error) {
+      console.error('Fehler beim Decodieren des Tokens:', error);
       return false;
     }
-    return decodedToken.roles.includes('admin');
   }
 
   logout(): void {

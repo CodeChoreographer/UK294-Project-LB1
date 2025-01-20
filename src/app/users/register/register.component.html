@@ -2,98 +2,137 @@
   <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
     <h2>Registrierung</h2>
 
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Vorname</mat-label>
+      <input
+        matInput
+        type="text"
+        id="firstName"
+        name="firstName"
+        [(ngModel)]="formData.firstName"
+        required
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Nachname</mat-label>
+      <input
+        matInput
+        type="text"
+        id="lastName"
+        name="lastName"
+        [(ngModel)]="formData.lastName"
+        required
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Strasse</mat-label>
+      <input
+        matInput
+        type="text"
+        id="street"
+        name="street"
+        [(ngModel)]="formData.street"
+        required
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>PLZ</mat-label>
+      <input
+        matInput
+        type="text"
+        id="zip"
+        name="zip"
+        [(ngModel)]="formData.zip"
+        required
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Stadt</mat-label>
+      <input
+        matInput
+        type="text"
+        id="city"
+        name="city"
+        [(ngModel)]="formData.city"
+        required
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Land</mat-label>
+      <input
+        matInput
+        type="text"
+        id="country"
+        name="country"
+        [(ngModel)]="formData.country"
+        required
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Telefon</mat-label>
+      <input
+        matInput
+        type="text"
+        id="phone"
+        name="phone"
+        [(ngModel)]="formData.phone"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Mobiltelefon</mat-label>
+      <input
+        matInput
+        type="text"
+        id="mobilePhone"
+        name="mobilePhone"
+        [(ngModel)]="formData.mobilePhone"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>E-Mail</mat-label>
+      <input
+        matInput
+        type="email"
+        id="email"
+        name="email"
+        [(ngModel)]="formData.email"
+        required
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Passwort</mat-label>
+      <input
+        matInput
+        type="password"
+        id="password"
+        name="password"
+        [(ngModel)]="formData.password"
+        required
+      />
+    </mat-form-field>
+
     @if (errorMessage) {
-      <div class="error">{{ errorMessage }}</div>
+      <mat-error>{{ errorMessage }}</mat-error>
     }
 
-    <label for="firstName">Vorname</label>
-    <input
-      type="text"
-      id="firstName"
-      name="firstName"
-      [(ngModel)]="formData.firstName"
-      required
-    />
-
-    <label for="lastName">Nachname</label>
-    <input
-      type="text"
-      id="lastName"
-      name="lastName"
-      [(ngModel)]="formData.lastName"
-      required
-    />
-
-    <label for="street">Strasse</label>
-    <input
-      type="text"
-      id="street"
-      name="street"
-      [(ngModel)]="formData.street"
-      required
-    />
-
-    <label for="zip">PLZ</label>
-    <input
-      type="text"
-      id="zip"
-      name="zip"
-      [(ngModel)]="formData.zip"
-      required
-    />
-
-    <label for="city">Stadt</label>
-    <input
-      type="text"
-      id="city"
-      name="city"
-      [(ngModel)]="formData.city"
-      required
-    />
-
-    <label for="country">Land</label>
-    <input
-      type="text"
-      id="country"
-      name="country"
-      [(ngModel)]="formData.country"
-      required
-    />
-
-    <label for="phone">Telefon</label>
-    <input
-      type="text"
-      id="phone"
-      name="phone"
-      [(ngModel)]="formData.phone"
-    />
-
-    <label for="mobilePhone">Mobiltelefon</label>
-    <input
-      type="text"
-      id="mobilePhone"
-      name="mobilePhone"
-      [(ngModel)]="formData.mobilePhone"
-    />
-
-    <label for="email">E-Mail</label>
-    <input
-      type="email"
-      id="email"
-      name="email"
-      [(ngModel)]="formData.email"
-      required
-    />
-
-    <label for="password">Passwort</label>
-    <input
-      type="password"
-      id="password"
-      name="password"
-      [(ngModel)]="formData.password"
-      required
-    />
-
-    <button type="submit" [disabled]="!registerForm.valid">Registrieren</button>
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="!registerForm.valid"
+      matTooltip="Bitte füllen Sie alle Felder aus"
+      [matTooltipDisabled]="registerForm.valid"
+    >
+      Registrieren
+    </button>
   </form>
 </div>

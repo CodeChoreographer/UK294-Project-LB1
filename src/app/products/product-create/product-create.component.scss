@@ -1,61 +1,54 @@
 .product-create-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  .mat-slide-toggle-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 20px 0;
-
-    .toggle-label {
-      margin-bottom: 8px;
-    }
-  }
-  select {
-    margin: 10px 0;
-  }
-}
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
   h2 {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    color: #333;
   }
 
-  label {
-    display: block;
-    font-weight: bold;
-    margin: 10px 0 5px;
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
 
-  input, textarea {
+  mat-form-field {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
+  }
+
+  .mat-slide-toggle-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  .toggle-label {
+    font-weight: bold;
+    color: black;
   }
 
   button {
     width: 100%;
-    padding: 10px;
+    margin-top: 5px;
     background-color: #007bff;
     color: white;
-    font-size: 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
 
-    &:hover {
+    &:hover:enabled {
       background-color: #0056b3;
     }
 
-    &:disabled {
+    &[disabled] {
       background-color: #ccc;
+      color: #666 ;
       cursor: not-allowed;
+      pointer-events: all;
     }
   }
 
@@ -64,4 +57,4 @@
     text-align: center;
     margin-bottom: 15px;
   }
-
+}

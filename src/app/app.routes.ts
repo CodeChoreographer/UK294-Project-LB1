@@ -29,9 +29,9 @@ export const appRoutes: Routes = [
     path: 'categories',
     children: [
       { path: '', loadComponent: () => import('./categories/category-list/category-list.component').then(m => m.CategoryListComponent) },
+      { path: 'create', loadComponent: () => import('./categories/category-create/category-create.component').then(m => m.CategoryCreateComponent), canActivate: [AdminGuard] },
       { path: ':id', loadComponent: () => import('./categories/category-detail/category-detail.component').then(m => m.CategoryDetailComponent) },
       { path: ':id/products', loadComponent: () => import('./products/product-list/product-list.component').then(m => m.ProductListComponent) },
-      { path: 'create', loadComponent: () => import('./categories/category-create/category-create.component').then(m => m.CategoryCreateComponent), canActivate: [AdminGuard] },
       { path: 'edit/:id', loadComponent: () => import('./categories/category-edit/category-edit.component').then(m => m.CategoryEditComponent), canActivate: [AdminGuard] },
     ],
   },

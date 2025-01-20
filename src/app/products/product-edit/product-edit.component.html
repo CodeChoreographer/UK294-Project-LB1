@@ -6,44 +6,55 @@
   }
 
   @if (productData) {
-    <form (ngSubmit)="onSave()">
-      <label for="sku">SKU</label>
-      <input type="text" id="sku" [(ngModel)]="productData.sku" name="sku" required />
+    <form>
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>SKU</mat-label>
+        <input matInput type="text" id="sku" [(ngModel)]="productData.sku" name="sku" required />
+      </mat-form-field>
 
-      <label for="name">Name</label>
-      <input type="text" id="name" [(ngModel)]="productData.name" name="name" required />
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Name</mat-label>
+        <input matInput type="text" id="name" [(ngModel)]="productData.name" name="name" required />
+      </mat-form-field>
 
-      <label for="image">Bild-URL</label>
-      <input type="text" id="image" [(ngModel)]="productData.image" name="image" required />
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Bild-URL</mat-label>
+        <input matInput type="text" id="image" [(ngModel)]="productData.image" name="image" />
+      </mat-form-field>
 
-      <label for="description">Beschreibung</label>
-      <textarea id="description" [(ngModel)]="productData.description" name="description" required></textarea>
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Beschreibung</mat-label>
+        <textarea matInput id="description" [(ngModel)]="productData.description" name="description" required></textarea>
+      </mat-form-field>
 
-      <label for="price">Preis</label>
-      <input type="number" id="price" [(ngModel)]="productData.price" name="price" required />
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Preis</mat-label>
+        <input matInput type="number" id="price" [(ngModel)]="productData.price" name="price" required />
+      </mat-form-field>
 
-      <label for="stock">Lagerbestand</label>
-      <input type="number" id="stock" [(ngModel)]="productData.stock" name="stock" required />
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Lagerbestand</mat-label>
+        <input matInput type="number" id="stock" [(ngModel)]="productData.stock" name="stock" required />
+      </mat-form-field>
 
-      <label for="categoryId">Kategorie</label>
-      <select id="categoryId" [(ngModel)]="productData.category.id" name="categoryId" required>
-        @for (category of categories; track category.id) {
-          <option [value]="category.id">{{ category.name }}</option>
-        }
-      </select>
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Kategorie</mat-label>
+        <mat-select [(ngModel)]="productData.category.id" name="categoryId" required>
+          @for (category of categories; track category.id) {
+            <mat-option [value]="category.id">{{ category.name }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
 
       <div class="mat-slide-toggle-container">
         <label class="toggle-label">Aktiv?</label>
-        <mat-slide-toggle id="active"
-                          [(ngModel)]="productData.active"
-                          name="active">
-
-        </mat-slide-toggle>
+        <mat-slide-toggle [(ngModel)]="productData.active" name="active"></mat-slide-toggle>
       </div>
 
-      <button type="submit" class="save-button">Änderungen speichern</button>
-      <button (click)="onDelete()" class="delete-button">Produkt löschen</button>
-
+      <div class="button-group">
+        <button mat-raised-button class="save-button" (click)="onSave()" type="submit">Änderungen speichern</button>
+        <button mat-raised-button class="delete-button" (click)="onDelete()">Produkt löschen</button>
+      </div>
     </form>
   } @else {
     <p>Keine Produktdaten verfügbar.</p>

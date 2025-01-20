@@ -3,6 +3,10 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../shared/services/auth.service';
+import {MatButton} from '@angular/material/button';
+import {MatFormField, MatLabel} from '@angular/material/form-field';
+import {MatInput} from '@angular/material/input';
+import {MatTooltip} from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-login',
@@ -11,6 +15,11 @@ import { AuthService } from '../../shared/services/auth.service';
   imports: [
     FormsModule,
     CommonModule,
+    MatButton,
+    MatFormField,
+    MatInput,
+    MatLabel,
+    MatTooltip
   ],
 })
 export class LoginComponent {

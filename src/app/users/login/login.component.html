@@ -2,31 +2,50 @@
   <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
     <h2>Anmeldung</h2>
 
-    <label for="username">Benutzername</label>
-    <input
-      type="text"
-      id="username"
-      name="username"
-      [(ngModel)]="username"
-      required
-    />
+    <mat-form-field appearance="fill">
+      <mat-label>Benutzername</mat-label>
+      <input
+        matInput
+        type="text"
+        id="username"
+        name="username"
+        [(ngModel)]="username"
+        required
+      />
+    </mat-form-field>
 
-    <label for="password">Passwort</label>
-    <input
-      type="password"
-      id="password"
-      name="password"
-      [(ngModel)]="password"
-      required
-    />
+    <mat-form-field appearance="fill" class="custom-field">
+      <mat-label>Passwort</mat-label>
+      <input
+        matInput
+        type="password"
+        id="password"
+        name="password"
+        [(ngModel)]="password"
+        required
+      />
+
+
+    </mat-form-field>
 
     @if (errorMessage) {
-      <div class="error">{{ errorMessage }}</div>
+      <div class="error-message">{{ errorMessage }}</div>
     }
 
-    <button type="submit" [disabled]="!loginForm.valid">Anmelden</button>
-  </form>
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="!loginForm.valid"
+      matTooltip="Bitte füllen Sie alle Felder aus"
+      [matTooltipDisabled]="loginForm.valid"
+    >
+      Anmelden
+    </button>
 
-  <p>Noch keinen Account?</p>
-  <button (click)="navigateToRegister()">Registrieren</button>
+    <p>Noch keinen Account?</p>
+    <button mat-raised-button color="accent" (click)="navigateToRegister()">
+      Registrieren
+    </button>
+  </form>
 </div>

@@ -2,12 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import { ProductService } from '../../shared/services/product.service';
 import {CurrencyPipe} from '@angular/common';
+import {MatButton} from '@angular/material/button';
 
 @Component({
   selector: 'app-product-detail',
   templateUrl: './product-detail.component.html',
   imports: [
-    CurrencyPipe
+    CurrencyPipe,
+    MatButton
   ],
   styleUrls: ['./product-detail.component.scss']
 })

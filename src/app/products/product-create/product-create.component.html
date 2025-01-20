@@ -5,80 +5,57 @@
     <div class="error">{{ errorMessage }}</div>
   }
 
-  <form (ngSubmit)="onSubmit()" #productForm="ngForm">
-    <label for="sku">SKU</label>
-    <input
-      type="text"
-      id="sku"
-      name="sku"
-      [(ngModel)]="productData.sku"
-      required
-    />
+  <form (ngSubmit)="onSubmit()" #productForm="ngForm" class="form-container">
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>SKU</mat-label>
+      <input matInput type="text" id="sku" name="sku" [(ngModel)]="productData.sku" required />
+    </mat-form-field>
 
-    <label for="name">Name</label>
-    <input
-      type="text"
-      id="name"
-      name="name"
-      [(ngModel)]="productData.name"
-      required
-    />
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Name</mat-label>
+      <input matInput type="text" id="name" name="name" [(ngModel)]="productData.name" required />
+    </mat-form-field>
 
-    <label for="image">Bild-URL</label>
-    <input
-      type="text"
-      id="image"
-      name="image"
-      [(ngModel)]="productData.image"
-    />
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Bild-URL</mat-label>
+      <input matInput type="text" id="image" name="image" [(ngModel)]="productData.image" />
+    </mat-form-field>
 
-    <label for="description">Beschreibung</label>
-    <textarea
-      id="description"
-      name="description"
-      [(ngModel)]="productData.description"
-      required
-    ></textarea>
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Beschreibung</mat-label>
+      <textarea matInput id="description" name="description" [(ngModel)]="productData.description" required></textarea>
+    </mat-form-field>
 
-    <label for="price">Preis</label>
-    <input
-      type="number"
-      id="price"
-      name="price"
-      [(ngModel)]="productData.price"
-      required
-    />
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Preis</mat-label>
+      <input matInput type="number" id="price" name="price" [(ngModel)]="productData.price" required />
+    </mat-form-field>
 
-    <label for="stock">Lagerbestand</label>
-    <input
-      type="number"
-      id="stock"
-      name="stock"
-      [(ngModel)]="productData.stock"
-      required
-    />
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Lagerbestand</mat-label>
+      <input matInput type="number" id="stock" name="stock" [(ngModel)]="productData.stock" required />
+    </mat-form-field>
 
-    <label for="categoryId">Kategorie</label>
-    <select
-      id="categoryId"
-      name="categoryId"
-      [(ngModel)]="productData.categoryId"
-      required
-    >
-      @for (category of categories; track category.id) {
-        <option [value]="category.id">{{ category.name }}</option>
-      }
-    </select>
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Kategorie</mat-label>
+      <mat-select [(ngModel)]="productData.categoryId" name="categoryId" required>
+        @for (category of categories; track category.id) {
+          <mat-option [value]="category.id">{{ category.name }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
 
     <div class="mat-slide-toggle-container">
-    <label class="toggle-label">Aktiv?</label>
-    <mat-slide-toggle id="active"
-                      [(ngModel)]="productData.active"
-                      name="active">
+      <label class="toggle-label">Aktiv?</label>
+      <mat-slide-toggle [(ngModel)]="productData.active" name="active"></mat-slide-toggle>
+    </div>
 
-    </mat-slide-toggle>
-  </div>
-
-    <button type="submit" [disabled]="!productForm.valid">Produkt erstellen</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!productForm.valid"
+      matTooltip="Bitte füllen Sie alle Felder aus"
+      [matTooltipDisabled]="productForm.valid"
+      >
+      Produkt erstellen
+    </button>
   </form>
+  <button mat-raised-button (click)="goBackToProducts()" class="back-button">Zurück zur Produktübersicht</button>
 </div>
