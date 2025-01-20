@@ -22,7 +22,7 @@
           <tr>
             <td>{{ product.sku }}</td>
             <td>{{ product.name }}</td>
-            <td><img [src]="product.image" alt="{{ product.name }}" width="50" /></td>
+            <td><img [src]="product.image || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRR86GcFZfR0R7L_f47XxDAN6snSzvnEqaCvg&s'" alt="{{ product.name }}" width="50" /></td>
             <td>{{ product.price | currency: 'CHF ' }}</td>
             <td>{{ product.stock }}</td>
             <td>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { ProductService } from '../../shared/services/product.service';
 import {CurrencyPipe} from '@angular/common';
 
@@ -16,6 +16,7 @@ export class ProductDetailComponent implements OnInit {
   errorMessage: string = '';
 
   constructor(
+    private router: Router,
     private route: ActivatedRoute,
     private productService: ProductService
   ) {}
@@ -37,4 +38,8 @@ export class ProductDetailComponent implements OnInit {
       },
     });
   }
+  goBackToProducts(): void {
+    this.router.navigate(['/products']);
+  }
+
 }
