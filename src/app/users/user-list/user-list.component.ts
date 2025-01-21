@@ -1,14 +1,40 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../shared/services/user.service';
+import {MatButton} from '@angular/material/button';
+import {
+  MatCell,
+  MatCellDef,
+  MatColumnDef,
+  MatHeaderCell,
+  MatHeaderCellDef,
+  MatHeaderRow, MatHeaderRowDef,
+  MatRow, MatRowDef, MatTable
+} from '@angular/material/table';
 
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.scss'],
+  imports: [
+    MatButton,
+    MatHeaderRow,
+    MatRow,
+    MatCell,
+    MatHeaderCell,
+    MatHeaderCellDef,
+    MatCellDef,
+    MatColumnDef,
+    MatHeaderRowDef,
+    MatRowDef,
+    MatTable
+  ]
 })
 export class UserListComponent implements OnInit {
   users: any[] = [];
   errorMessage: string = '';
+  displayedColumns: string[] = ['id', 'firstName', 'lastName', 'address', 'phone', 'email', 'actions'];
+
+
 
   constructor(private userService: UserService) {}
 

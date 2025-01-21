@@ -6,39 +6,80 @@
   }
 
   @if (users.length > 0) {
-    <table>
-      <thead>
-      <tr>
-        <th>ID</th>
-        <th>Vorname</th>
-        <th>Nachname</th>
-        <th>Adresse</th>
-        <th>Telefon</th>
-        <th>E-Mail</th>
-        <th>Aktionen</th>
-      </tr>
-      </thead>
-      <tbody>
-        @for (user of users; track user.id) {
-          <tr>
-            <td>{{ user.id }}</td>
-            <td>{{ user.firstName }}</td>
-            <td>{{ user.lastName }}</td>
-            <td>{{ user.street }}, {{ user.zip }} {{ user.city }} ({{ user.country }})</td>
-            <td>
-              Telefon: {{ user.phone }} <br />
-              Mobil: {{ user.mobilePhone }}
-            </td>
-            <td>{{ user.email }}</td>
-            <td>
-              @if (!user.isAdmin) {
-                <button (click)="promoteUser(user.id)">Zum Admin befördern</button>
-              }
-            </td>
-          </tr>
-        }
-      </tbody>
-    </table>
+    <div class="table-container">
+      <table mat-table [dataSource]="users" class="users-table">
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef> ID</th>
+          <td mat-cell *matCellDef="let user"> {{ user.id }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="firstName">
+          <th mat-header-cell *matHeaderCellDef> Vorname</th>
+          <td mat-cell *matCellDef="let user"> {{ user.firstName }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="lastName">
+          <th mat-header-cell *matHeaderCellDef> Nachname</th>
+          <td mat-cell *matCellDef="let user"> {{ user.lastName }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="address">
+          <th mat-header-cell *matHeaderCellDef> Adresse</th>
+          <td mat-cell *matCellDef="let user">
+            {{ user.street }}, {{ user.zip }} {{ user.city }} ({{ user.country }})
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="phone">
+          <th mat-header-cell *matHeaderCellDef> Telefon</th>
+          <td mat-cell *matCellDef="let user">
+            Telefon: {{ user.phone }} <br/>
+            Mobil: {{ user.mobilePhone }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef> E-Mail</th>
+          <td mat-cell *matCellDef="let user"> {{ user.email }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef> Aktionen</th>
+          <td mat-cell *matCellDef="let user">
+            @if (!user.isAdmin) {
+              <button mat-raised-button color="primary" (click)="promoteUser(user.id)">
+                Befördern
+              </button>
+            }
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+    <div class="card-container">
+      @for (user of users; track user.id) {
+        <div class="card">
+          <h3>Benutzer-ID: {{ user.id }}</h3>
+          <div class="card-content">
+            <p><strong>Vorname:</strong> {{ user.firstName }}</p>
+            <p><strong>Nachname:</strong> {{ user.lastName }}</p>
+            <p><strong>Adresse:</strong> {{ user.street }}, {{ user.zip }} {{ user.city }} ({{ user.country }})</p>
+            <p><strong>Telefon:</strong> {{ user.phone }}</p>
+            <p><strong>Mobil:</strong> {{ user.mobilePhone }}</p>
+            <p><strong>E-Mail:</strong> {{ user.email }}</p>
+          </div>
+          <div class="card-actions">
+            @if (!user.isAdmin) {
+              <button mat-raised-button color="primary" (click)="promoteUser(user.id)">
+                Befördern
+              </button>
+            }
+          </div>
+        </div>
+      }
+    </div>
   } @else {
     <p>Keine Benutzer verfügbar.</p>
   }

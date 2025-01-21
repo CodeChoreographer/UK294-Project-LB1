@@ -5,37 +5,65 @@
     <div class="error">{{ errorMessage }}</div>
   }
 
+  <!-- Tabellenansicht für grössere Bildschirme-->
   @if (categories.length > 0) {
-    <table mat-table [dataSource]="categories" class="mat-elevation-z8">
+    <div class="category-table">
+      <table mat-table [dataSource]="categories" class="category-table">
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef> ID </th>
+          <td mat-cell *matCellDef="let category"> {{ category.id }} </td>
+        </ng-container>
 
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef> ID </th>
-        <td mat-cell *matCellDef="let category"> {{ category.id }} </td>
-      </ng-container>
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let category"> {{ category.name }} </td>
+        </ng-container>
 
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef> Name </th>
-        <td mat-cell *matCellDef="let category"> {{ category.name }} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef> Aktionen </th>
-        <td mat-cell *matCellDef="let category">
-          <button mat-raised-button color="primary" (click)="viewDetails(category.id)">
-            Details anzeigen
-          </button>
-          @if (isAdmin) {
-            <button mat-raised-button color="accent" (click)="editCategory(category.id)">
-              Bearbeiten
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef> Aktionen </th>
+          <td mat-cell *matCellDef="let category">
+            <button mat-raised-button color="primary" (click)="viewDetails(category.id)">
+              Details anzeigen
             </button>
-          }
-        </td>
-      </ng-container>
+            @if (isAdmin) {
+              <button mat-raised-button color="accent" (click)="editCategory(category.id)">
+                Bearbeiten
+              </button>
+            }
+          </td>
+        </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
   } @else {
     <p>Keine Kategorien verfügbar.</p>
   }
+
+  <!-- Kartenansicht für kleinere Bildschirme -->
+  <div class="card-container">
+    @if (categories.length > 0) {
+      @for (category of categories; track category.id) {
+        <div class="card">
+          <h3>{{ category.name }}</h3>
+          <div class="card-content">
+            <p><strong>ID:</strong> {{ category.id }}</p>
+          </div>
+          <div class="card-actions">
+            <button mat-raised-button color="primary" (click)="viewDetails(category.id)">
+              Details anzeigen
+            </button>
+            @if (isAdmin) {
+              <button mat-raised-button color="accent" (click)="editCategory(category.id)">
+                Bearbeiten
+              </button>
+            }
+          </div>
+        </div>
+      }
+    } @else {
+      <p>Keine Kategorien verfügbar.</p>
+    }
+  </div>
 </div>
