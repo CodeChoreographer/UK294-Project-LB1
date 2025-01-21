@@ -13,7 +13,7 @@ import {NgIf} from '@angular/common';
   selector: 'app-product-edit',
   templateUrl: './product-edit.component.html',
   styleUrls: ['./product-edit.component.scss'],
-  imports: [MatSlideToggleModule, MatSelectModule, FormsModule, MatInput, MatButton, NgIf],
+  imports: [MatSlideToggleModule, MatSelectModule, FormsModule, MatInput, MatButton],
 })
 export class ProductEditComponent implements OnInit {
   productData: any = null;

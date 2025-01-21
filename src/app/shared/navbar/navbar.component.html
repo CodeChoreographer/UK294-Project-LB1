@@ -1,12 +1,36 @@
 <nav class="navbar">
-  <ul class="menu">
-    <li><a routerLink="/products">Produkte</a></li>
-    @if (isAdmin) {
-      <li><a routerLink="/products/create">Produkt erstellen</a></li>    }
-    <li><a routerLink="/categories">Kategorien</a></li>
-    @if (isAdmin) {
-      <li><a routerLink="/categories/create">Kategorie erstellen</a></li>
-    }
+  <button class="menu-toggle" (click)="toggleMenu()">
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <ul class="menu" [class.show]="isMenuOpen">
+    <li>
+      <a routerLink="/products">
+        Produkte
+        @if (isAdmin) {
+          <mat-icon>arrow_drop_down</mat-icon>
+        }
+      </a>
+      @if (isAdmin) {
+        <ul class="submenu">
+          <li><a routerLink="/products/create">Produkt erstellen</a></li>
+        </ul>
+      }
+    </li>
+
+    <li>
+      <a routerLink="/categories">
+        Kategorien
+        @if (isAdmin) {
+          <mat-icon>arrow_drop_down</mat-icon>
+        }
+      </a>
+      @if (isAdmin) {
+        <ul class="submenu">
+          <li><a routerLink="/categories/create">Kategorie erstellen</a></li>
+        </ul>
+      }
+    </li>
 
     @if (isAdmin) {
       <li><a routerLink="/users">Benutzerverwaltung</a></li>
