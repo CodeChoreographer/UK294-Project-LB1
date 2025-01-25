@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import { CategoryService } from '../../shared/services/category.service';
 import {FormsModule} from '@angular/forms';
 import {MatSlideToggle} from '@angular/material/slide-toggle';
-import {MatFormField, MatLabel} from '@angular/material/form-field';
+import {MatError, MatFormField, MatLabel} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
-import {MatButton} from '@angular/material/button';
+import {MatAnchor, MatButton} from '@angular/material/button';
 import {MatTooltip} from '@angular/material/tooltip';
+import {JsonPipe} from '@angular/common';
 
 @Component({
   selector: 'app-category-create',
@@ -18,7 +19,11 @@ import {MatTooltip} from '@angular/material/tooltip';
     MatInput,
     MatButton,
     MatLabel,
-    MatTooltip
+    MatTooltip,
+    JsonPipe,
+    MatError,
+    MatAnchor,
+    RouterLink
   ],
   styleUrls: ['./category-create.component.scss']
 })

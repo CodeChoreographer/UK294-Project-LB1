@@ -1,14 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import { CategoryService } from '../../shared/services/category.service';
 import {CurrencyPipe} from '@angular/common';
+import {MatAnchor} from "@angular/material/button";
 
 @Component({
   selector: 'app-category-detail',
   templateUrl: './category-detail.component.html',
   styleUrls: ['./category-detail.component.scss'],
   imports: [
-    CurrencyPipe
+    CurrencyPipe,
+    RouterLink,
+    MatAnchor
   ]
 })
 export class CategoryDetailComponent implements OnInit {

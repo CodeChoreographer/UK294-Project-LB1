@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../shared/services/user.service';
-import {MatButton} from '@angular/material/button';
+import {MatAnchor, MatButton} from '@angular/material/button';
 import {
   MatCell,
   MatCellDef,
@@ -26,7 +26,8 @@ import {
     MatColumnDef,
     MatHeaderRowDef,
     MatRowDef,
-    MatTable
+    MatTable,
+    MatAnchor
   ]
 })
 export class UserListComponent implements OnInit {

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../shared/services/product.service';
-import { Router } from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import { AuthService } from '../../shared/services/auth.service';
 import {CurrencyPipe} from '@angular/common';
 import {
@@ -12,7 +12,7 @@ import {
   MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef,
   MatTable
 } from '@angular/material/table';
-import {MatButton} from '@angular/material/button';
+import {MatAnchor, MatButton} from '@angular/material/button';
 
 @Component({
   selector: 'app-product-list',
@@ -29,7 +29,9 @@ import {MatButton} from '@angular/material/button';
     MatHeaderRow,
     MatRow,
     MatRowDef,
-    MatHeaderRowDef
+    MatHeaderRowDef,
+    MatAnchor,
+    RouterLink
   ],
   styleUrls: ['./product-list.component.scss']
 })

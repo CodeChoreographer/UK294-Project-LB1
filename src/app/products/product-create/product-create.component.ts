@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import { ProductService } from '../../shared/services/product.service';
 import { CategoryService } from '../../shared/services/category.service';
 import {FormsModule} from '@angular/forms';
 import {MatSlideToggle} from '@angular/material/slide-toggle';
-import {MatButton} from '@angular/material/button';
+import {MatAnchor, MatButton} from '@angular/material/button';
 import {MatOption} from '@angular/material/core';
-import {MatFormField, MatLabel, MatSelect} from '@angular/material/select';
+import {MatError, MatFormField, MatLabel, MatSelect} from '@angular/material/select';
 import {MatInput} from '@angular/material/input';
 import {MatTooltip} from '@angular/material/tooltip';
 
@@ -22,7 +22,10 @@ import {MatTooltip} from '@angular/material/tooltip';
     MatLabel,
     MatFormField,
     MatInput,
-    MatTooltip
+    MatTooltip,
+    MatAnchor,
+    RouterLink,
+    MatError
   ],
   styleUrls: ['./product-create.component.scss']
 })

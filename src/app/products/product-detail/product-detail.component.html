@@ -17,6 +17,6 @@
     <p><strong>Verfügbarkeit:</strong> {{ product.stock }}</p>
     <p><strong>Kategorie:</strong> {{ product.category?.name }}</p>
 
-    <button mat-raised-button (click)="goBackToProducts()" class="back-button">Zurück zur Produktübersicht</button>
+    <a mat-raised-button routerLink="/products" class="back-button">Zurück zur Produktübersicht</a>
   }
 </div>

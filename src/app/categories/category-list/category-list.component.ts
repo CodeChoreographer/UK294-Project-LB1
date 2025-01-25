@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../../shared/services/category.service';
-import { Router } from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import { AuthService } from '../../shared/services/auth.service';
 import {
   MatCell,
@@ -11,7 +11,7 @@ import {
   MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef,
   MatTable
 } from '@angular/material/table';
-import {MatButton} from '@angular/material/button';
+import {MatAnchor, MatButton} from '@angular/material/button';
 
 @Component({
   selector: 'app-category-list',
@@ -28,7 +28,9 @@ import {MatButton} from '@angular/material/button';
     MatHeaderRow,
     MatHeaderRowDef,
     MatRow,
-    MatRowDef
+    MatRowDef,
+    MatAnchor,
+    RouterLink
   ]
 })
 export class CategoryListComponent implements OnInit {

@@ -8,22 +8,33 @@
   <form (ngSubmit)="onSubmit()" #productForm="ngForm" class="form-container">
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>SKU</mat-label>
-      <input matInput type="text" id="sku" name="sku" [(ngModel)]="productData.sku" required />
+      <input matInput type="text" id="sku" name="sku" #skuModel="ngModel"[(ngModel)]="productData.sku" required />
+      @if (skuModel.touched && skuModel.hasError("required")){
+        <mat-error>Feld darf nicht leer sein
+        </mat-error>}
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Name</mat-label>
-      <input matInput type="text" id="name" name="name" [(ngModel)]="productData.name" required />
+      <input matInput type="text" id="name" name="name"  #nameModel="ngModel"
+             [(ngModel)]="productData.name" required />
+      @if (nameModel.touched && nameModel.hasError("required")){
+        <mat-error>Feld darf nicht leer sein
+        </mat-error>
+      }
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Bild-URL</mat-label>
-      <input matInput type="text" id="image" name="image" [(ngModel)]="productData.image" />
+      <input matInput type="text" id="image" name="image" [(ngModel)]="productData.image"  />
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Beschreibung</mat-label>
-      <textarea matInput id="description" name="description" [(ngModel)]="productData.description" required></textarea>
+      <textarea matInput id="description" name="description" #descriptionModel="ngModel" [(ngModel)]="productData.description" required></textarea>
+      @if (descriptionModel.touched && descriptionModel.hasError("required")){
+        <mat-error>Feld darf nicht leer sein
+        </mat-error>}
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="full-width">
@@ -50,12 +61,18 @@
       <mat-slide-toggle [(ngModel)]="productData.active" name="active"></mat-slide-toggle>
     </div>
 
-    <button mat-raised-button color="primary" type="submit" [disabled]="!productForm.valid"
-            matTooltip="Bitte füllen Sie alle Felder aus"
-            [matTooltipDisabled]="productForm.valid"
-    >
-      Produkt erstellen
-    </button>
+
   </form>
-  <button mat-raised-button (click)="goBackToProducts()" class="back-button">Zurück zur Produktübersicht</button>
+  <div>
+
+  <button mat-raised-button class="button" [disabled]="!productForm.valid"
+     matTooltip="Bitte füllen Sie alle Felder aus"
+     [matTooltipDisabled]="productForm.valid"
+  >
+    Produkt erstellen
+  </button>
+  </div>
+  <div class="center-link">
+    <a mat-raised-button routerLink="/products" class="back-button">Zurück zur Produktübersicht</a>
+  </div>
 </div>

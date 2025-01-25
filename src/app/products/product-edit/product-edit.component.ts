@@ -6,14 +6,14 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
 import { MatInput } from '@angular/material/input';
-import { MatButton } from '@angular/material/button';
+import {MatAnchor, MatButton} from '@angular/material/button';
 import {NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-product-edit',
   templateUrl: './product-edit.component.html',
   styleUrls: ['./product-edit.component.scss'],
-  imports: [MatSlideToggleModule, MatSelectModule, FormsModule, MatInput, MatButton],
+  imports: [MatSlideToggleModule, MatSelectModule, FormsModule, MatInput, MatButton, MatAnchor],
 })
 export class ProductEditComponent implements OnInit {
   productData: any = null;

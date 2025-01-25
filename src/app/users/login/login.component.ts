@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../shared/services/auth.service';
-import {MatButton} from '@angular/material/button';
+import {MatAnchor, MatButton} from '@angular/material/button';
 import {MatFormField, MatLabel} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
 import {MatTooltip} from '@angular/material/tooltip';
@@ -19,7 +19,8 @@ import {MatTooltip} from '@angular/material/tooltip';
     MatFormField,
     MatInput,
     MatLabel,
-    MatTooltip
+    MatTooltip,
+    MatAnchor
   ],
 })
 export class LoginComponent {
