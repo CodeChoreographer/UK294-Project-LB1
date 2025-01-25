@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CategoryService } from '../../shared/services/category.service';
+import {CurrencyPipe} from '@angular/common';
 
 @Component({
   selector: 'app-category-detail',
   templateUrl: './category-detail.component.html',
-  styleUrls: ['./category-detail.component.scss']
+  styleUrls: ['./category-detail.component.scss'],
+  imports: [
+    CurrencyPipe
+  ]
 })
 export class CategoryDetailComponent implements OnInit {
   categoryData: any = {};
@@ -30,11 +34,16 @@ export class CategoryDetailComponent implements OnInit {
       error: (err) => {
         this.errorMessage = 'Fehler beim Laden der Kategorie.';
         console.error(err);
-      }
+      },
     });
   }
 
   goBackToCategories(): void {
     this.router.navigate(['/categories']);
   }
+
+  viewProductDetails(productId: number): void {
+    this.router.navigate(['/products', productId]);
+  }
+
 }

@@ -9,10 +9,31 @@
     <p><strong>ID:</strong> {{ categoryData.id }}</p>
     <p><strong>Name:</strong> {{ categoryData.name }}</p>
     <p><strong>Status:</strong> {{ categoryData.active ? 'Aktiv' : 'Inaktiv' }}</p>
+
+    <h3>Produkte in dieser Kategorie:</h3>
+
+    @if (categoryData.products && categoryData.products.length > 0) {
+      <div class="products-list">
+        @for (product of categoryData.products; track product.id) {
+          <div class="product-card">
+            <div class="product-details">
+              <h3>{{ product.name }}</h3>
+              <p><strong>Preis:</strong> {{ product.price | currency: 'CHF ' }}</p>
+              <p><strong>Verfügbarkeit:</strong> {{ product.stock > 0 ? 'Auf Lager' : 'Ausverkauft' }}</p>
+            </div>
+            <img class="product-image" [src]="product.image || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRR86GcFZfR0R7L_f47XxDAN6snSzvnEqaCvg&s'" alt="{{ product.name }}" />
+            <div class="product-actions">
+              <button (click)="viewProductDetails(product.id)">Zu diesem Produkt</button>
+            </div>
+          </div>
+        }
+      </div>
+    } @else {
+      <p>Keine Produkte in dieser Kategorie.</p>
+    }
   } @else {
     <p>Keine Kategorie-Daten verfügbar.</p>
   }
 
-  <button (click)="goBackToCategories()" class="back-button">Zurück zur Kategorieübersicht</button>
-
+  <button class="back-button" (click)="goBackToCategories()">Zurück zur Kategorieübersicht</button>
 </div>
