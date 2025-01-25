@@ -32,9 +32,7 @@ import {
 export class UserListComponent implements OnInit {
   users: any[] = [];
   errorMessage: string = '';
-  displayedColumns: string[] = ['id', 'firstName', 'lastName', 'address', 'phone', 'email', 'actions'];
-
-
+  displayedColumns: string[] = ['id', 'firstName', 'lastName', 'address', 'phone', 'email', 'role', 'actions'];
 
   constructor(private userService: UserService) {}
 
@@ -54,6 +52,7 @@ export class UserListComponent implements OnInit {
     });
   }
 
+
   promoteUser(userId: number): void {
     this.userService.promoteToAdmin(userId).subscribe({
       next: () => {
@@ -67,3 +66,5 @@ export class UserListComponent implements OnInit {
     });
   }
 }
+
+

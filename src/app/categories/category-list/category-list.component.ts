@@ -36,7 +36,7 @@ export class CategoryListComponent implements OnInit {
   errorMessage: string = '';
   isAdmin: boolean = false;
 
-  displayedColumns: string[] = ['id', 'name', 'actions'];
+  displayedColumns: string[] = [ 'name', 'actions'];
 
   constructor(
     private categoryService: CategoryService,
