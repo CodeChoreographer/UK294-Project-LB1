@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CategoryService } from '../../shared/services/category.service';
-import {CurrencyPipe} from '@angular/common';
+import { CurrencyPipe } from '@angular/common';
+import { CategoryControllerService, CategoryDetailDto } from '../../shared/services/openAPI';
 
 @Component({
   selector: 'app-category-detail',
@@ -12,13 +12,13 @@ import {CurrencyPipe} from '@angular/common';
   ]
 })
 export class CategoryDetailComponent implements OnInit {
-  categoryData: any = {};
+  categoryData: CategoryDetailDto | null = null;
   errorMessage: string = '';
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private categoryService: CategoryService
+    private categoryService: CategoryControllerService
   ) {}
 
   ngOnInit(): void {
@@ -26,9 +26,9 @@ export class CategoryDetailComponent implements OnInit {
   }
 
   loadCategory(): void {
-    const id = this.route.snapshot.params['id'];
+    const id = +this.route.snapshot.params['id'];
     this.categoryService.getCategoryById(id).subscribe({
-      next: (data) => {
+      next: (data: CategoryDetailDto) => {
         this.categoryData = data;
       },
       error: (err) => {
@@ -45,5 +45,4 @@ export class CategoryDetailComponent implements OnInit {
   viewProductDetails(productId: number): void {
     this.router.navigate(['/products', productId]);
   }
-
 }

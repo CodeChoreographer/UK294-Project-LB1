@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpRequest, HttpHandlerFn, HttpEvent } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
 
@@ -28,6 +28,19 @@ export class AuthService {
     return localStorage.getItem(this.tokenKey);
   }
 
+  logout(): void {
+    localStorage.removeItem(this.tokenKey);
+  }
+
+  isAuthenticated(): boolean {
+    const token = this.getToken();
+    return !!token && !this.isTokenExpired();
+  }
+  isAdmin(): boolean {
+    const decodedToken = this.getDecodedToken();
+    return decodedToken?.roles?.includes('admin') || false;
+  }
+
   getDecodedToken(): any | null {
     const token = this.getToken();
     if (!token) return null;
@@ -39,8 +52,10 @@ export class AuthService {
       return null;
     }
   }
+  isTokenExpired(): boolean {
+    const token = this.getToken();
+    if (!token) return true;
 
-  isTokenExpired(token: string): boolean {
     try {
       const decoded: any = jwtDecode(token);
       const currentTime = Math.floor(Date.now() / 1000); // Zeit in Sekunden
@@ -51,24 +66,17 @@ export class AuthService {
     }
   }
 
-  isAuthenticated(): boolean {
+
+  authInterceptor: (req: HttpRequest<unknown>, next: HttpHandlerFn) => Observable<HttpEvent<unknown>> = (req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> => {
     const token = this.getToken();
-    return !!token && !this.isTokenExpired(token);
-  }
-
-  isAdmin(): boolean {
-    const token = localStorage.getItem('authToken');
-    if (!token) return false;
-    try {
-      const decodedToken: any = jwtDecode(token);
-      return decodedToken?.roles?.includes('admin');
-    } catch (error) {
-      console.error('Fehler beim Decodieren des Tokens:', error);
-      return false;
+    if (token) {
+      const clonedRequest = req.clone({
+        setHeaders: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return next(clonedRequest);
     }
-  }
-
-  logout(): void {
-    localStorage.removeItem(this.tokenKey);
-  }
+    return next(req);
+  };
 }
