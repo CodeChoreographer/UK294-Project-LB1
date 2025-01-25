@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../shared/services/user.service';
 import {MatButton} from '@angular/material/button';
 import {
   MatCell,
@@ -10,6 +9,7 @@ import {
   MatHeaderRow, MatHeaderRowDef,
   MatRow, MatRowDef, MatTable
 } from '@angular/material/table';
+import {UserControllerService} from '../../shared/services/openAPI';
 
 @Component({
   selector: 'app-user-list',
@@ -36,14 +36,14 @@ export class UserListComponent implements OnInit {
 
 
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserControllerService) {}
 
   ngOnInit(): void {
     this.loadUsers();
   }
 
   loadUsers(): void {
-    this.userService.getUsers().subscribe({
+    this.userService.getAllUsers().subscribe({
       next: (data) => {
         this.users = data;
       },
@@ -55,7 +55,7 @@ export class UserListComponent implements OnInit {
   }
 
   promoteUser(userId: number): void {
-    this.userService.promoteToAdmin(userId).subscribe({
+    this.userService.promoteUser(userId).subscribe({
       next: () => {
         alert(`Benutzer mit ID ${userId} wurde erfolgreich zum Admin befördert.`);
         this.loadUsers();

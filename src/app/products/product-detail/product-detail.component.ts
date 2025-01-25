@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import { ProductService } from '../../shared/services/product.service';
-import {CurrencyPipe} from '@angular/common';
-import {MatButton} from '@angular/material/button';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CurrencyPipe } from '@angular/common';
+import { MatButton } from '@angular/material/button';
+import { ProductControllerService, ProductDetailDto } from '../../shared/services/openAPI';
 
 @Component({
   selector: 'app-product-detail',
@@ -14,13 +14,13 @@ import {MatButton} from '@angular/material/button';
   styleUrls: ['./product-detail.component.scss']
 })
 export class ProductDetailComponent implements OnInit {
-  product: any = null;
+  product: ProductDetailDto | null = null;
   errorMessage: string = '';
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private productService: ProductService
+    private productService: ProductControllerService
   ) {}
 
   ngOnInit(): void {
@@ -32,7 +32,7 @@ export class ProductDetailComponent implements OnInit {
 
   loadProductDetails(id: number): void {
     this.productService.getProductById(id).subscribe({
-      next: (data) => {
+      next: (data: ProductDetailDto) => {
         this.product = data;
       },
       error: () => {
@@ -40,8 +40,8 @@ export class ProductDetailComponent implements OnInit {
       },
     });
   }
+
   goBackToProducts(): void {
     this.router.navigate(['/products']);
   }
-
 }

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CategoryService } from '../../shared/services/category.service';
-import {FormsModule} from '@angular/forms';
-import {CurrencyPipe} from '@angular/common';
-import {MatSlideToggle} from '@angular/material/slide-toggle';
+import { FormsModule } from '@angular/forms';
+import { CurrencyPipe } from '@angular/common';
+import { MatSlideToggle } from '@angular/material/slide-toggle';
+import { CategoryControllerService, CategoryDetailDto, CategoryUpdateDto } from '../../shared/services/openAPI';
+import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-category-edit',
@@ -16,14 +17,15 @@ import {MatSlideToggle} from '@angular/material/slide-toggle';
   styleUrls: ['./category-edit.component.scss']
 })
 export class CategoryEditComponent implements OnInit {
-  categoryData: any = null;
+  categoryData: CategoryDetailDto | null = null;
   errorMessage: string = '';
   isAdmin: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private categoryService: CategoryService
+    private categoryService: CategoryControllerService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -32,13 +34,12 @@ export class CategoryEditComponent implements OnInit {
       this.loadCategoryDetails(+categoryId);
     }
 
-    const token = localStorage.getItem('authToken');
-    this.isAdmin = !!token;
+    this.isAdmin = this.authService.isAdmin();
   }
 
   loadCategoryDetails(id: number): void {
     this.categoryService.getCategoryById(id).subscribe({
-      next: (data) => {
+      next: (data: CategoryDetailDto) => {
         this.categoryData = data;
       },
       error: (err) => {
@@ -49,9 +50,13 @@ export class CategoryEditComponent implements OnInit {
   }
 
   onSave(): void {
-    if (this.isAdmin) {
-      console.log('Zu sendende Daten:', this.categoryData);
-      this.categoryService.updateCategory(this.categoryData).subscribe({
+    if (this.isAdmin && this.categoryData) {
+      const updateDto: CategoryUpdateDto = {
+        name: this.categoryData.name,
+        active: this.categoryData.active,
+      };
+
+      this.categoryService.updateCategoryById(this.categoryData.id, updateDto).subscribe({
         next: () => {
           alert('Kategorie erfolgreich aktualisiert!');
           this.router.navigate(['/categories']);
@@ -65,8 +70,8 @@ export class CategoryEditComponent implements OnInit {
   }
 
   onDelete(): void {
-    if (this.isAdmin && confirm('Möchten Sie diese Kategorie wirklich löschen?')) {
-      this.categoryService.deleteCategory(this.categoryData.id).subscribe({
+    if (this.isAdmin && this.categoryData && confirm('Möchten Sie diese Kategorie wirklich löschen?')) {
+      this.categoryService.deleteCategoryById(this.categoryData.id).subscribe({
         next: () => {
           alert('Kategorie erfolgreich gelöscht!');
           this.router.navigate(['/categories']);

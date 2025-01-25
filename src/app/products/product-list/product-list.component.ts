@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductService } from '../../shared/services/product.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../shared/services/auth.service';
 import {CurrencyPipe} from '@angular/common';
@@ -13,6 +12,7 @@ import {
   MatTable
 } from '@angular/material/table';
 import {MatButton} from '@angular/material/button';
+import {ProductControllerService} from '../../shared/services/openAPI';
 
 @Component({
   selector: 'app-product-list',
@@ -42,7 +42,7 @@ export class ProductListComponent implements OnInit {
 
 
   constructor(
-    private productService: ProductService,
+    private productService: ProductControllerService,
     private router: Router,
     private authService: AuthService
   ) {}
@@ -53,7 +53,7 @@ export class ProductListComponent implements OnInit {
   }
 
   loadProducts(): void {
-    this.productService.getProducts().subscribe({
+    this.productService.getAllProducts().subscribe({
       next: (data) => (this.products = data),
       error: (err) => {
         this.errorMessage = 'Fehler beim Laden der Produkte.';

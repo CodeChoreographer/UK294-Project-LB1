@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ProductService } from '../../shared/services/product.service';
-import { CategoryService } from '../../shared/services/category.service';
-import {FormsModule} from '@angular/forms';
-import {MatSlideToggle} from '@angular/material/slide-toggle';
-import {MatButton} from '@angular/material/button';
-import {MatOption} from '@angular/material/core';
-import {MatFormField, MatLabel, MatSelect} from '@angular/material/select';
-import {MatInput} from '@angular/material/input';
-import {MatTooltip} from '@angular/material/tooltip';
+import { FormsModule } from '@angular/forms';
+import { MatSlideToggle } from '@angular/material/slide-toggle';
+import { MatButton } from '@angular/material/button';
+import { MatOption } from '@angular/material/core';
+import { MatFormField, MatLabel, MatSelect } from '@angular/material/select';
+import { MatInput } from '@angular/material/input';
+import { MatTooltip } from '@angular/material/tooltip';
+import { ProductControllerService, CategoryControllerService, ProductCreateDto, CategoryShowDto } from '../../shared/services/openAPI';
 
 @Component({
   selector: 'app-product-create',
@@ -27,7 +26,7 @@ import {MatTooltip} from '@angular/material/tooltip';
   styleUrls: ['./product-create.component.scss']
 })
 export class ProductCreateComponent implements OnInit {
-  productData = {
+  productData: ProductCreateDto = {
     sku: '',
     active: true,
     name: '',
@@ -35,15 +34,15 @@ export class ProductCreateComponent implements OnInit {
     description: '',
     price: 0,
     stock: 0,
-    categoryId: '',
+    categoryId: 0,
   };
 
-  categories: any[] = [];
+  categories: CategoryShowDto[] = [];
   errorMessage: string = '';
 
   constructor(
-    private productService: ProductService,
-    private categoryService: CategoryService,
+    private productService: ProductControllerService,
+    private categoryService: CategoryControllerService,
     private router: Router
   ) {}
 
@@ -52,8 +51,8 @@ export class ProductCreateComponent implements OnInit {
   }
 
   loadCategories(): void {
-    this.categoryService.getCategories().subscribe({
-      next: (data) => {
+    this.categoryService.getAllCategories().subscribe({
+      next: (data: CategoryShowDto[]) => {
         this.categories = data;
       },
       error: (err) => {
