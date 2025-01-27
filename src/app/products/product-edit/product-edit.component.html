@@ -1,50 +1,103 @@
-<div class="product-edit-container">
+<div class="form-container-wrapper">
   <h2>Produkt bearbeiten</h2>
 
   @if (errorMessage) {
-    <div class="error">{{ errorMessage }}</div>
+    <div class="error-message">{{ errorMessage }}</div>
   }
 
   @if (productData) {
-    <form>
-      <mat-form-field appearance="fill" class="full-width">
+    <form #productForm="ngForm" class="form-container">
+      <mat-form-field appearance="fill">
         <mat-label>SKU</mat-label>
-        <input matInput type="text" id="sku" [(ngModel)]="productData.sku" name="sku" required />
+        <input
+          matInput
+          type="text"
+          id="sku"
+          name="sku"
+          [(ngModel)]="productData.sku"
+          required
+        />
+        @if (!productData.sku) {
+          <mat-error>Feld darf nicht leer sein</mat-error>
+        }
       </mat-form-field>
 
-      <mat-form-field appearance="fill" class="full-width">
+      <mat-form-field appearance="fill">
         <mat-label>Name</mat-label>
-        <input matInput type="text" id="name" [(ngModel)]="productData.name" name="name" required />
+        <input
+          matInput
+          type="text"
+          id="name"
+          name="name"
+          [(ngModel)]="productData.name"
+          required
+        />
+        @if (!productData.name) {
+          <mat-error>Feld darf nicht leer sein</mat-error>
+        }
       </mat-form-field>
 
-      <mat-form-field appearance="fill" class="full-width">
+      <mat-form-field appearance="fill">
         <mat-label>Bild-URL</mat-label>
-        <input matInput type="text" id="image" [(ngModel)]="productData.image" name="image" />
+        <input matInput type="text" id="image" name="image" [(ngModel)]="productData.image" />
       </mat-form-field>
 
-      <mat-form-field appearance="fill" class="full-width">
+      <mat-form-field appearance="fill">
         <mat-label>Beschreibung</mat-label>
-        <textarea matInput id="description" [(ngModel)]="productData.description" name="description" required></textarea>
+        <textarea
+          matInput
+          id="description"
+          name="description"
+          [(ngModel)]="productData.description"
+          required
+        ></textarea>
+        @if (!productData.description) {
+          <mat-error>Feld darf nicht leer sein</mat-error>
+        }
       </mat-form-field>
 
-      <mat-form-field appearance="fill" class="full-width">
+      <mat-form-field appearance="fill">
         <mat-label>Preis</mat-label>
-        <input matInput type="number" id="price" [(ngModel)]="productData.price" name="price" required />
+        <input
+          matInput
+          type="number"
+          id="price"
+          name="price"
+          [(ngModel)]="productData.price"
+          required
+        />
+        @if (productData.price <= 0) {
+          <mat-error>Feld darf nicht leer sein und muss eine Zahl enthalten</mat-error>
+        }
       </mat-form-field>
 
-      <mat-form-field appearance="fill" class="full-width">
+      <mat-form-field appearance="fill">
         <mat-label>Lagerbestand</mat-label>
-        <input matInput type="number" id="stock" [(ngModel)]="productData.stock" name="stock" required />
+        <input
+          matInput
+          type="number"
+          id="stock"
+          name="stock"
+          [(ngModel)]="productData.stock"
+          required
+        />
+        @if (productData.stock < 0) {
+          <mat-error>Feld darf nicht leer sein und muss eine Zahl enthalten</mat-error>
+        }
       </mat-form-field>
 
-      <mat-form-field appearance="fill" class="full-width">
+      <mat-form-field appearance="fill">
         <mat-label>Kategorie</mat-label>
-        <mat-select [(ngModel)]="productData.category" name="categoryId" required>
+        <mat-select [(ngModel)]="productData.categoryId" name="categoryId" required>
           @for (category of categories; track category.id) {
             <mat-option [value]="category.id">{{ category.name }}</mat-option>
           }
         </mat-select>
+        @if (!productData.categoryId) {
+          <mat-error>Eine Kategorie muss ausgewählt werden</mat-error>
+        }
       </mat-form-field>
+
 
       <div class="mat-slide-toggle-container">
         <label class="toggle-label">Aktiv?</label>
@@ -52,8 +105,18 @@
       </div>
 
       <div class="button-group">
-        <button mat-raised-button class="save-button" (click)="onSave()" type="submit">Änderungen speichern</button>
-        <button mat-raised-button class="delete-button" (click)="onDelete()">Produkt löschen</button>
+        <button
+          mat-raised-button
+          class="primary-button"
+          type="button"
+          (click)="onSave()"
+          [disabled]="!productForm.valid"
+        >
+          Änderungen speichern
+        </button>
+        <button mat-raised-button class="secondary-button" type="button" (click)="onDelete()">
+          Produkt löschen
+        </button>
       </div>
     </form>
   } @else {

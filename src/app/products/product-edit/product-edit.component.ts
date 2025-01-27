@@ -1,100 +1,92 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatSelectModule } from '@angular/material/select';
-import { FormsModule } from '@angular/forms';
-import { MatInput } from '@angular/material/input';
-import {MatAnchor, MatButton} from '@angular/material/button';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
+import Swal from 'sweetalert2';
+import { ToastrService } from 'ngx-toastr';
 import {
   CategoryControllerService,
   CategoryShowDto,
   ProductControllerService,
   ProductDetailDto
 } from '../../shared/services/openAPI';
-import { AuthService } from '../../shared/services/auth.service';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatSelectModule} from '@angular/material/select';
+import {FormsModule} from '@angular/forms';
+import {MatInput} from '@angular/material/input';
+import {MatAnchor, MatButton} from '@angular/material/button';
 
 @Component({
   selector: 'app-product-edit',
   templateUrl: './product-edit.component.html',
-  styleUrls: ['./product-edit.component.scss'],
-  imports: [MatSlideToggleModule, MatSelectModule, FormsModule, MatInput, MatButton, MatAnchor],
+  imports: [MatSlideToggleModule, MatSelectModule, FormsModule, MatInput, MatButton, MatAnchor, RouterLink],
+  styleUrls: ['./product-edit.component.scss']
 })
 export class ProductEditComponent implements OnInit {
   productData: ProductDetailDto | null = null;
   categories: Array<CategoryShowDto> = [];
   errorMessage: string = '';
-  isAdmin: boolean = false;
-  productId: number | undefined = undefined;
 
   constructor(
     private route: ActivatedRoute,
     private productService: ProductControllerService,
     private categoryService: CategoryControllerService,
-    private authService: AuthService,
+    private toastr: ToastrService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.productId = +this.route.snapshot.params['id'];
-    this.checkAdminStatus();
-    this.loadProduct();
+    const productId = +this.route.snapshot.params['id'];
+    this.loadProduct(productId);
     this.loadCategories();
-  }
-
-  checkAdminStatus(): void {
-    this.isAdmin = this.authService.isAdmin();
   }
 
   loadCategories(): void {
     this.categoryService.getAllCategories().subscribe({
       next: (data) => (this.categories = data),
-      error: () => (this.errorMessage = 'Fehler beim Laden der Kategorien.'),
+      error: () => this.toastr.error('Fehler beim Laden der Kategorien', 'Fehler'),
     });
   }
 
-  loadProduct(): void {
-    if (this.productId) {
-      this.productService.getProductById(this.productId).subscribe({
-        next: (data) => {
-          this.productData = data;
-        },
-        error: () => (this.errorMessage = 'Fehler beim Laden des Produkts.'),
-      });
-    }
+  loadProduct(productId: number): void {
+    this.productService.getProductById(productId).subscribe({
+      next: (data) => {
+        this.productData = data;
+        this.productData.categoryId = this.productData.category?.id;
+      },
+      error: () => this.toastr.error('Fehler beim Laden des Produkts', 'Fehler'),
+    });
   }
 
+
   onSave(): void {
-    if (this.productId && this.productData) {
-      this.productService.updateProductById(this.productId, this.productData).subscribe({
+    if (this.productData) {
+      this.productService.updateProductById(this.productData.id, this.productData).subscribe({
         next: () => {
-          alert('Produkt erfolgreich aktualisiert!');
+          this.toastr.success('Produkt erfolgreich aktualisiert', 'Erfolg');
           this.router.navigate(['/products']);
         },
-        error: () => {
-          this.errorMessage = 'Fehler beim Speichern des Produkts.';
-        },
+        error: () => this.toastr.error('Fehler beim Speichern des Produkts', 'Fehler'),
       });
-    } else {
-      console.error('Produkt-ID und Produktdaten sind erforderlich.');
     }
   }
 
   onDelete(): void {
-    const userConfirmed = confirm('Möchten Sie dieses Produkt wirklich löschen?');
-    if (!userConfirmed) {
-      return;
-    }
-    if (this.isAdmin && this.productId) {
-      this.productService.deleteProductById(this.productId).subscribe({
-        next: () => {
-          alert('Produkt erfolgreich gelöscht!');
-          this.router.navigate(['/products']);
-        },
-        error: (err) => {
-          this.errorMessage = 'Fehler beim Löschen des Produkts.';
-          console.error(err);
-        },
-      });
-    }
+    Swal.fire({
+      title: 'Sind Sie sicher?',
+      text: 'Dieses Produkt wird dauerhaft gelöscht!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Ja, löschen!',
+      cancelButtonText: 'Abbrechen',
+    }).then((result) => {
+      if (result.isConfirmed && this.productData) {
+        this.productService.deleteProductById(this.productData.id).subscribe({
+          next: () => {
+            this.toastr.success('Produkt erfolgreich gelöscht', 'Erfolg');
+            this.router.navigate(['/products']);
+          },
+          error: () => this.toastr.error('Fehler beim Löschen des Produkts', 'Fehler'),
+        });
+      }
+    });
   }
 }

@@ -1,8 +1,8 @@
-<div class="category-create-container">
+<div class="form-container-wrapper">
   <h2>Kategorie erstellen</h2>
 
   @if (errorMessage) {
-    <div class="error">{{ errorMessage }}</div>
+    <div class="error-message">{{ errorMessage }}</div>
   }
 
   <form (ngSubmit)="onSubmit()" #categoryForm="ngForm" class="form-container">
@@ -17,31 +17,25 @@
         [(ngModel)]="categoryData.name"
         required
       />
-      @if (nameModel.touched && nameModel.hasError("required")){
-      <mat-error>Feld darf nicht leer sein
-      </mat-error>
+      @if (nameModel.touched && nameModel.hasError('required')) {
+        <mat-error>Feld darf nicht leer sein</mat-error>
       }
     </mat-form-field>
 
     <div class="mat-slide-toggle-container">
       <label class="toggle-label">Aktiv?</label>
-      <mat-slide-toggle
-        id="active"
-        [(ngModel)]="categoryData.active"
-        name="active"
-      ></mat-slide-toggle>
+      <mat-slide-toggle [(ngModel)]="categoryData.active" name="active"></mat-slide-toggle>
     </div>
 
     <button
       mat-raised-button
-      color="primary"
-      type="submit"
+      class="primary-button"
       [disabled]="!categoryForm.valid"
       matTooltip="Bitte füllen Sie alle Felder aus"
       [matTooltipDisabled]="categoryForm.valid"
     >
       Kategorie erstellen
     </button>
+    <a mat-raised-button routerLink="/categories" class="secondary-button">Zurück zur Kategorieübersicht</a>
   </form>
-  <a mat-raised-button routerLink="/categories" class="back-button">Zurück zur Kategorieübersicht</a>
 </div>

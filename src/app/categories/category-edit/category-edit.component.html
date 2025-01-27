@@ -1,35 +1,66 @@
-<div class="category-edit-container">
+<div class="form-container-wrapper">
   <h2>Kategorie bearbeiten</h2>
 
   @if (errorMessage) {
-    <div class="error">{{ errorMessage }}</div>
+    <div class="error-message">{{ errorMessage }}</div>
   }
 
   @if (categoryData) {
-    <form (ngSubmit)="onSave()">
-      <label for="name">Name der Kategorie</label>
-      <input type="text" id="name" [(ngModel)]="categoryData.name" name="name" required />
+    <form #categoryForm="ngForm" class="form-container">
+      <mat-form-field appearance="fill">
+        <mat-label>Name der Kategorie</mat-label>
+        <input
+          matInput
+          type="text"
+          id="name"
+          name="name"
+          [(ngModel)]="categoryData.name"
+          required
+        />
+        @if (categoryForm.submitted && !categoryData.name) {
+          <mat-error>Feld darf nicht leer sein</mat-error>
+        }
+      </mat-form-field>
 
-      <label>Status</label>
       <div class="mat-slide-toggle-container">
         <label class="toggle-label">Aktiv?</label>
-        <mat-slide-toggle id="active"
-                          [(ngModel)]="categoryData.active"
-                          name="active">
-
-        </mat-slide-toggle>
+        <mat-slide-toggle [(ngModel)]="categoryData.active" name="active"></mat-slide-toggle>
       </div>
 
-      <label>Produkte in dieser Kategorie:</label>
-      <ul>
-        @for (product of categoryData.products; track product.id) {
-          <li>{{ product.name }} (SKU: {{ product.sku }}, Preis: {{ product.price | currency: 'CHF ' }}, Lager: {{ product.stock }})</li>
+      <div class="products-section">
+        <h3>Produkte in dieser Kategorie:</h3>
+        @if (categoryData.products && categoryData.products.length > 0) {
+          <ul>
+            @for (product of categoryData.products; track product.id) {
+              <li>
+                <strong>{{ product.name }}</strong>
+                (SKU: {{ product.sku }}, Preis: {{ product.price | currency: 'CHF ' }}, Lager: {{ product.stock }})
+              </li>
+            }
+          </ul>
+        } @else {
+          <p>Keine Produkte in dieser Kategorie.</p>
         }
-      </ul>
+      </div>
 
       <div class="button-group">
-        <button type="submit">Änderungen speichern</button>
-        <button type="button" (click)="onDelete()">Kategorie löschen</button>
+        <button
+          mat-raised-button
+          class="primary-button"
+          type="button"
+          (click)="onSave()"
+          [disabled]="!categoryForm.valid"
+        >
+          Änderungen speichern
+        </button>
+        <button
+          mat-raised-button
+          class="secondary-button"
+          type="button"
+          (click)="onDelete()"
+        >
+          Kategorie löschen
+        </button>
       </div>
     </form>
   } @else {
