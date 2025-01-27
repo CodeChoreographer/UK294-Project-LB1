@@ -5,8 +5,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
 import { MatInput } from '@angular/material/input';
 import {MatAnchor, MatButton} from '@angular/material/button';
-import {NgIf} from '@angular/common';
-import { MatButton } from '@angular/material/button';
 import {
   CategoryControllerService,
   CategoryShowDto,

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {CurrencyPipe} from '@angular/common';
 import {MatAnchor} from "@angular/material/button";
-import { ActivatedRoute, Router } from '@angular/router';
 import { CategoryControllerService, CategoryDetailDto } from '../../shared/services/openAPI';
 
 @Component({

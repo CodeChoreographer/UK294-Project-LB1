@@ -78,7 +78,4 @@ export class ProductCreateComponent implements OnInit {
     });
   }
 
-  goBackToProducts(): void {
-    this.router.navigate(['/products']);
-  }
 }

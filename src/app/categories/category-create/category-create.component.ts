@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import {Router, RouterLink} from '@angular/router';
-import { CategoryService } from '../../shared/services/category.service';
 import {FormsModule} from '@angular/forms';
 import {MatSlideToggle} from '@angular/material/slide-toggle';
 import {MatError, MatFormField, MatLabel} from '@angular/material/form-field';
@@ -8,7 +7,6 @@ import {MatInput} from '@angular/material/input';
 import {MatAnchor, MatButton} from '@angular/material/button';
 import {MatTooltip} from '@angular/material/tooltip';
 import {JsonPipe} from '@angular/common';
-import { MatButton } from '@angular/material/button';
 import { CategoryControllerService, CategoryCreateDto } from '../../shared/services/openAPI';
 
 @Component({

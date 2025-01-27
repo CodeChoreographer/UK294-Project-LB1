@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { CategoryService } from '../../shared/services/category.service';
 import {Router, RouterLink} from '@angular/router';
 import { AuthService } from '../../shared/services/auth.service';
 import {
