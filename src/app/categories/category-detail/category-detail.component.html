@@ -23,7 +23,7 @@
             </div>
             <img class="product-image" [src]="product.image || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRR86GcFZfR0R7L_f47XxDAN6snSzvnEqaCvg&s'" alt="{{ product.name }}" />
             <div class="product-actions">
-              <button (click)="viewProductDetails(product.id)">Zum Produkt</button>
+              <a mat-raised-button routerLink="/products/{{product.id}}" class="back-button" >Zum Produkt</a>
             </div>
           </div>
         }
@@ -35,5 +35,5 @@
     <p>Keine Kategorie-Daten verfügbar.</p>
   }
 
-  <button class="back-button" (click)="goBackToCategories()">Zurück zur Kategorieübersicht</button>
+  <a class="back-button" routerLink="/categories">Zurück zur Kategorieübersicht</a>
 </div>

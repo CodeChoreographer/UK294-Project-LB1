@@ -13,9 +13,14 @@
         type="text"
         id="name"
         name="name"
+        #nameModel="ngModel"
         [(ngModel)]="categoryData.name"
         required
       />
+      @if (nameModel.touched && nameModel.hasError("required")){
+      <mat-error>Feld darf nicht leer sein
+      </mat-error>
+      }
     </mat-form-field>
 
     <div class="mat-slide-toggle-container">
@@ -38,5 +43,5 @@
       Kategorie erstellen
     </button>
   </form>
-  <button mat-raised-button (click)="goBackToCategories()" class="back-button">Zurück zur Kategorieübersicht</button>
+  <a mat-raised-button routerLink="/categories" class="back-button">Zurück zur Kategorieübersicht</a>
 </div>

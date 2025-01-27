@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
+import {CurrencyPipe} from '@angular/common';
+import {MatAnchor} from "@angular/material/button";
 import { ActivatedRoute, Router } from '@angular/router';
-import { CurrencyPipe } from '@angular/common';
 import { CategoryControllerService, CategoryDetailDto } from '../../shared/services/openAPI';
 
 @Component({
@@ -8,7 +10,9 @@ import { CategoryControllerService, CategoryDetailDto } from '../../shared/servi
   templateUrl: './category-detail.component.html',
   styleUrls: ['./category-detail.component.scss'],
   imports: [
-    CurrencyPipe
+    CurrencyPipe,
+    RouterLink,
+    MatAnchor
   ]
 })
 export class CategoryDetailComponent implements OnInit {

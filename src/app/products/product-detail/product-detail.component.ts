@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { CurrencyPipe } from '@angular/common';
-import { MatButton } from '@angular/material/button';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
+import {CurrencyPipe} from '@angular/common';
+import {MatAnchor, MatButton} from '@angular/material/button';
 import { ProductControllerService, ProductDetailDto } from '../../shared/services/openAPI';
 
 @Component({
@@ -9,7 +9,9 @@ import { ProductControllerService, ProductDetailDto } from '../../shared/service
   templateUrl: './product-detail.component.html',
   imports: [
     CurrencyPipe,
-    MatButton
+    MatButton,
+    MatAnchor,
+    RouterLink
   ],
   styleUrls: ['./product-detail.component.scss']
 })

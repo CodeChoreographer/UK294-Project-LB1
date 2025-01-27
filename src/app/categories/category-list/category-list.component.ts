@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { CategoryService } from '../../shared/services/category.service';
+import {Router, RouterLink} from '@angular/router';
 import { AuthService } from '../../shared/services/auth.service';
 import {
   MatCell,
@@ -13,7 +14,7 @@ import {
   MatRowDef,
   MatTable
 } from '@angular/material/table';
-import { MatButton } from '@angular/material/button';
+import {MatAnchor, MatButton} from '@angular/material/button';
 import { CategoryControllerService, CategoryShowDto } from '../../shared/services/openAPI';
 
 @Component({
@@ -31,7 +32,9 @@ import { CategoryControllerService, CategoryShowDto } from '../../shared/service
     MatHeaderRow,
     MatHeaderRowDef,
     MatRow,
-    MatRowDef
+    MatRowDef,
+    MatAnchor,
+    RouterLink
   ]
 })
 export class CategoryListComponent implements OnInit {
@@ -39,7 +42,7 @@ export class CategoryListComponent implements OnInit {
   errorMessage: string = '';
   isAdmin: boolean = false;
 
-  displayedColumns: string[] = ['id', 'name', 'actions'];
+  displayedColumns: string[] = [ 'name', 'actions'];
 
   constructor(
     private categoryService: CategoryControllerService,

@@ -42,10 +42,11 @@ export class RegisterComponent {
       return false;
     }
 
-    if (!/^\d*$/.test(this.formData.phone) || !/^\d*$/.test(this.formData.mobilePhone)) {
-      this.errorMessage = 'Telefonnummern dürfen nur aus Zahlen bestehen.';
+    if (!/^\d+(\s\d+)*$/.test(this.formData.phone) || !/^\d+(\s\d+)*$/.test(this.formData.mobilePhone)) {
+      this.errorMessage = 'Telefonnummern dürfen nur Zahlen und nicht mehr als ein Leerzeichen hintereinander enthalten.';
       return false;
     }
+
 
     if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(this.formData.email)) {
       this.errorMessage = 'Bitte geben Sie eine gültige E-Mail-Adresse ein.';

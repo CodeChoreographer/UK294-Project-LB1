@@ -4,6 +4,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
 import { MatInput } from '@angular/material/input';
+import {MatAnchor, MatButton} from '@angular/material/button';
+import {NgIf} from '@angular/common';
 import { MatButton } from '@angular/material/button';
 import {
   CategoryControllerService,
@@ -17,7 +19,7 @@ import { AuthService } from '../../shared/services/auth.service';
   selector: 'app-product-edit',
   templateUrl: './product-edit.component.html',
   styleUrls: ['./product-edit.component.scss'],
-  imports: [MatSlideToggleModule, MatSelectModule, FormsModule, MatInput, MatButton],
+  imports: [MatSlideToggleModule, MatSelectModule, FormsModule, MatInput, MatButton, MatAnchor],
 })
 export class ProductEditComponent implements OnInit {
   productData: ProductDetailDto | null = null;

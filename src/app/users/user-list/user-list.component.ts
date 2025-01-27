@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {MatButton} from '@angular/material/button';
+import {MatAnchor, MatButton} from '@angular/material/button';
 import {
   MatCell,
   MatCellDef,
@@ -26,15 +26,14 @@ import {UserControllerService} from '../../shared/services/openAPI';
     MatColumnDef,
     MatHeaderRowDef,
     MatRowDef,
-    MatTable
+    MatTable,
+    MatAnchor
   ]
 })
 export class UserListComponent implements OnInit {
   users: any[] = [];
   errorMessage: string = '';
-  displayedColumns: string[] = ['id', 'firstName', 'lastName', 'address', 'phone', 'email', 'actions'];
-
-
+  displayedColumns: string[] = ['id', 'firstName', 'lastName', 'address', 'phone', 'email', 'role', 'actions'];
 
   constructor(private userService: UserControllerService) {}
 
@@ -54,6 +53,7 @@ export class UserListComponent implements OnInit {
     });
   }
 
+
   promoteUser(userId: number): void {
     this.userService.promoteUser(userId).subscribe({
       next: () => {
@@ -67,3 +67,5 @@ export class UserListComponent implements OnInit {
     });
   }
 }
+
+
