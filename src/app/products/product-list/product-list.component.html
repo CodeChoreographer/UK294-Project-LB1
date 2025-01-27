@@ -1,4 +1,4 @@
-<div class="product-list-container">
+<div class="table-container">
   <h2>Produktliste</h2>
 
   @if (errorMessage) {
@@ -7,7 +7,7 @@
 
   @if (products.length > 0) {
     <!-- Tabellenansicht für grosse Bildschirme -->
-    <table mat-table [dataSource]="products" class="product-table">
+    <table mat-table [dataSource]="products" class="table">
       <ng-container matColumnDef="sku">
         <th mat-header-cell *matHeaderCellDef> SKU </th>
         <td mat-cell *matCellDef="let product"> {{ product.sku }} </td>
@@ -42,7 +42,7 @@
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef> Aktionen </th>
         <td mat-cell *matCellDef="let product">
-          <a mat-raised-button color="primary"  [routerLink]="['/products', product.id]" >Details</a>
+          <a mat-raised-button class="primary-button" [routerLink]="['/products', product.id]">Details</a>
           @if (isAdmin) {
             <a mat-raised-button class="edit-button" [routerLink]="['/products/edit', product.id]">Bearbeiten</a>
           }
@@ -68,9 +68,9 @@
             />
           </div>
           <div class="card-actions">
-            <a mat-raised-button color="primary" [routerLink]="['/products', product.id]">Details</a>
+            <a mat-raised-button class="primary-button" [routerLink]="['/products', product.id]">Details</a>
             @if (isAdmin) {
-              <a mat-raised-button color="accent" [routerLink]="['/products/edit', product.id]">Bearbeiten</a>
+              <a mat-raised-button class="edit-button" [routerLink]="['/products/edit', product.id]">Bearbeiten</a>
             }
           </div>
         </div>

@@ -4,9 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../shared/services/auth.service';
 import {MatAnchor, MatButton} from '@angular/material/button';
-import {MatFormField, MatLabel} from '@angular/material/form-field';
+import {MatError, MatFormField, MatLabel} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
 import {MatTooltip} from '@angular/material/tooltip';
+import {MatTableModule} from '@angular/material/table';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,8 @@ import {MatTooltip} from '@angular/material/tooltip';
     MatInput,
     MatLabel,
     MatTooltip,
-    MatAnchor
+    MatTableModule,
+    MatError
   ],
 })
 export class LoginComponent {

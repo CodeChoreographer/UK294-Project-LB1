@@ -6,8 +6,10 @@
   width: 100%;
   z-index: 1000;
   padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   transition: transform 0.3s ease-in-out;
-  outline: 2px solid red;
 
   &.hidden {
     transform: translateY(-100%);
@@ -17,9 +19,7 @@
     transform: translateY(0);
   }
 
-
-
-.menu-toggle {
+  .menu-toggle {
     display: none;
     background: none;
     border: none;
@@ -86,7 +86,6 @@
       }
     }
   }
-  }
 
   @media screen and (max-width: 768px) {
     .menu-toggle {
@@ -104,7 +103,6 @@
       width: 100%;
       padding: 10px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      z-index: 1000;
 
       li {
         width: 100%;
@@ -129,4 +127,4 @@
       display: flex;
     }
   }
-
+}

@@ -13,11 +13,12 @@ import {MatSelectModule} from '@angular/material/select';
 import {FormsModule} from '@angular/forms';
 import {MatInput} from '@angular/material/input';
 import {MatAnchor, MatButton} from '@angular/material/button';
+import {MatTableModule} from '@angular/material/table';
 
 @Component({
   selector: 'app-product-edit',
   templateUrl: './product-edit.component.html',
-  imports: [MatSlideToggleModule, MatSelectModule, FormsModule, MatInput, MatButton, MatAnchor, RouterLink],
+  imports: [MatSlideToggleModule, MatSelectModule, FormsModule, MatInput, MatButton, MatTableModule],
   styleUrls: ['./product-edit.component.scss']
 })
 export class ProductEditComponent implements OnInit {

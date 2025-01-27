@@ -12,6 +12,7 @@ import {MatSlideToggle} from '@angular/material/slide-toggle';
 import {FormsModule} from '@angular/forms';
 import {MatError, MatFormField, MatLabel} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-category-edit',
@@ -68,16 +69,23 @@ export class CategoryEditComponent implements OnInit {
   }
 
   onDelete(): void {
-    if (this.categoryData) {
-      this.categoryService.deleteCategoryById(this.categoryData.id).subscribe({
-        next: () => {
-          this.toastr.success('Kategorie erfolgreich gelöscht', 'Erfolg');
-          this.router.navigate(['/categories']);
-        },
-        error: () => {
-          this.toastr.error('Fehler beim Löschen der Kategorie', 'Fehler');
-        },
-      });
-    }
+    Swal.fire({
+      title: 'Sind Sie sicher?',
+      text: 'Diese Kategorie wird dauerhaft gelöscht!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Ja, löschen!',
+      cancelButtonText: 'Abbrechen',
+    }).then((result) => {
+      if (result.isConfirmed && this.categoryData) {
+        this.categoryService.deleteCategoryById(this.categoryData.id).subscribe({
+          next: () => {
+            this.toastr.success('Kategorie erfolgreich gelöscht', 'Erfolg');
+            this.router.navigate(['/categories']);
+          },
+          error: () => this.toastr.error('Fehler beim Löschen der Kategorie', 'Fehler'),
+        });
+      }
+    });
   }
 }

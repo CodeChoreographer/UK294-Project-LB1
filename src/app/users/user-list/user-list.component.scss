@@ -41,12 +41,11 @@
 
   button {
     color: white;
-    background-color: #007bff;
+    background-color: #28a745;
 
     &:hover {
-      background-color: #0056b3;
-    }
-  }
+      background-color: #1e7e34;
+      text-decoration: none;}}
 
   .card-container {
     display: none;
@@ -95,10 +94,11 @@
         margin-top: 10px;
         width: 100px;
         color: white;
-        background-color: #007bff;
+        background-color: #28a745;
 
         &:hover {
-          background-color: #0056b3;
+          background-color: #1e7e34;
+          text-decoration: none;
         }
       }
     }

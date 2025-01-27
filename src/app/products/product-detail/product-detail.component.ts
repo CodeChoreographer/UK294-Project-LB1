@@ -9,7 +9,6 @@ import { ProductControllerService, ProductDetailDto } from '../../shared/service
   templateUrl: './product-detail.component.html',
   imports: [
     CurrencyPipe,
-    MatButton,
     MatAnchor,
     RouterLink
   ],

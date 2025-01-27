@@ -11,7 +11,7 @@ import {
   MatHeaderRowDef,
   MatRow,
   MatRowDef,
-  MatTable
+  MatTable, MatTableModule
 } from '@angular/material/table';
 import {MatAnchor, MatButton} from '@angular/material/button';
 import { CategoryControllerService, CategoryShowDto } from '../../shared/services/openAPI';
@@ -24,14 +24,10 @@ import { CategoryControllerService, CategoryShowDto } from '../../shared/service
     MatTable,
     MatColumnDef,
     MatHeaderCell,
-    MatHeaderCellDef,
+    MatTableModule,
     MatCell,
-    MatCellDef,
-    MatButton,
     MatHeaderRow,
-    MatHeaderRowDef,
     MatRow,
-    MatRowDef,
     MatAnchor,
     RouterLink
   ]
