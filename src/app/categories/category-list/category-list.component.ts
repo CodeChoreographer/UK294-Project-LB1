@@ -8,10 +8,14 @@ import {
   MatColumnDef,
   MatHeaderCell,
   MatHeaderCellDef,
-  MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef,
+  MatHeaderRow,
+  MatHeaderRowDef,
+  MatRow,
+  MatRowDef,
   MatTable
 } from '@angular/material/table';
 import {MatAnchor, MatButton} from '@angular/material/button';
+import { CategoryControllerService, CategoryShowDto } from '../../shared/services/openAPI';
 
 @Component({
   selector: 'app-category-list',
@@ -34,14 +38,14 @@ import {MatAnchor, MatButton} from '@angular/material/button';
   ]
 })
 export class CategoryListComponent implements OnInit {
-  categories: any[] = [];
+  categories: CategoryShowDto[] = [];
   errorMessage: string = '';
   isAdmin: boolean = false;
 
   displayedColumns: string[] = [ 'name', 'actions'];
 
   constructor(
-    private categoryService: CategoryService,
+    private categoryService: CategoryControllerService,
     private router: Router,
     private authService: AuthService
   ) {}
@@ -52,8 +56,8 @@ export class CategoryListComponent implements OnInit {
   }
 
   loadCategories(): void {
-    this.categoryService.getCategories().subscribe({
-      next: (data) => {
+    this.categoryService.getAllCategories().subscribe({
+      next: (data: CategoryShowDto[]) => {
         this.categories = data;
       },
       error: () => {

@@ -55,7 +55,7 @@ export class RegisterComponent {
 
     if (!/^(?=.*[!@#$%^&*(),.?":{}|<>])(?=.*[A-Za-z\d]).{8,}$/.test(this.formData.password)) {
       this.errorMessage =
-        'Das Passwort muss mindestens 8 Zeichen lang sein, eine Zahl, einen Großbuchstaben und ein Sonderzeichen enthalten.';
+        'Das Passwort muss mindestens 8 Zeichen lang sein, eine Zahl, einen Grossbuchstaben und ein Sonderzeichen enthalten.';
       return false;
     }
 

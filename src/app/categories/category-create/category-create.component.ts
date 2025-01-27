@@ -8,6 +8,8 @@ import {MatInput} from '@angular/material/input';
 import {MatAnchor, MatButton} from '@angular/material/button';
 import {MatTooltip} from '@angular/material/tooltip';
 import {JsonPipe} from '@angular/common';
+import { MatButton } from '@angular/material/button';
+import { CategoryControllerService, CategoryCreateDto } from '../../shared/services/openAPI';
 
 @Component({
   selector: 'app-category-create',
@@ -28,13 +30,16 @@ import {JsonPipe} from '@angular/common';
   styleUrls: ['./category-create.component.scss']
 })
 export class CategoryCreateComponent {
-  categoryData = {
+  categoryData: CategoryCreateDto = {
     name: '',
     active: true,
   };
   errorMessage: string = '';
 
-  constructor(private categoryService: CategoryService, private router: Router) {}
+  constructor(
+    private categoryService: CategoryControllerService,
+    private router: Router
+  ) {}
 
   onSubmit(): void {
     this.categoryService.createCategory(this.categoryData).subscribe({
@@ -48,6 +53,7 @@ export class CategoryCreateComponent {
       },
     });
   }
+
   goBackToCategories(): void {
     this.router.navigate(['/categories']);
   }
