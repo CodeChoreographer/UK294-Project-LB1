@@ -1,56 +1,55 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { CurrencyPipe } from '@angular/common';
-import { MatSlideToggle } from '@angular/material/slide-toggle';
-import { CategoryControllerService, CategoryDetailDto, CategoryUpdateDto } from '../../shared/services/openAPI';
-import { AuthService } from '../../shared/services/auth.service';
+import { ToastrService } from 'ngx-toastr';
+import {
+  CategoryControllerService,
+  CategoryDetailDto,
+  CategoryUpdateDto,
+} from '../../shared/services/openAPI';
+import {CurrencyPipe} from '@angular/common';
+import {MatButton} from '@angular/material/button';
+import {MatSlideToggle} from '@angular/material/slide-toggle';
+import {FormsModule} from '@angular/forms';
+import {MatError, MatFormField, MatLabel} from '@angular/material/form-field';
+import {MatInput} from '@angular/material/input';
 
 @Component({
   selector: 'app-category-edit',
   templateUrl: './category-edit.component.html',
-  imports: [
-    FormsModule,
-    CurrencyPipe,
-    MatSlideToggle
-  ],
-  styleUrls: ['./category-edit.component.scss']
+  imports: [FormsModule, CurrencyPipe, MatSlideToggle, MatButton, CurrencyPipe, MatButton, MatError, MatInput, MatLabel, MatFormField],
+  styleUrls: ['./category-edit.component.scss'],
 })
 export class CategoryEditComponent implements OnInit {
   categoryData: CategoryDetailDto | null = null;
   errorMessage: string = '';
-  isAdmin: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private categoryService: CategoryControllerService,
-    private authService: AuthService
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
-    const categoryId = this.route.snapshot.paramMap.get('id');
+    const categoryId = +this.route.snapshot.params['id'];
     if (categoryId) {
-      this.loadCategoryDetails(+categoryId);
+      this.loadCategoryDetails(categoryId);
     }
-
-    this.isAdmin = this.authService.isAdmin();
   }
 
   loadCategoryDetails(id: number): void {
     this.categoryService.getCategoryById(id).subscribe({
-      next: (data: CategoryDetailDto) => {
+      next: (data) => {
         this.categoryData = data;
       },
-      error: (err) => {
+      error: () => {
         this.errorMessage = 'Fehler beim Laden der Kategorie.';
-        console.error(err);
       },
     });
   }
 
   onSave(): void {
-    if (this.isAdmin && this.categoryData) {
+    if (this.categoryData) {
       const updateDto: CategoryUpdateDto = {
         name: this.categoryData.name,
         active: this.categoryData.active,
@@ -58,27 +57,25 @@ export class CategoryEditComponent implements OnInit {
 
       this.categoryService.updateCategoryById(this.categoryData.id, updateDto).subscribe({
         next: () => {
-          alert('Kategorie erfolgreich aktualisiert!');
+          this.toastr.success('Kategorie erfolgreich aktualisiert', 'Erfolg');
           this.router.navigate(['/categories']);
         },
-        error: (err) => {
-          this.errorMessage = 'Fehler beim Speichern der Änderungen.';
-          console.error(err);
+        error: () => {
+          this.toastr.error('Fehler beim Speichern der Kategorie', 'Fehler');
         },
       });
     }
   }
 
   onDelete(): void {
-    if (this.isAdmin && this.categoryData && confirm('Möchten Sie diese Kategorie wirklich löschen?')) {
+    if (this.categoryData) {
       this.categoryService.deleteCategoryById(this.categoryData.id).subscribe({
         next: () => {
-          alert('Kategorie erfolgreich gelöscht!');
+          this.toastr.success('Kategorie erfolgreich gelöscht', 'Erfolg');
           this.router.navigate(['/categories']);
         },
-        error: (err) => {
-          this.errorMessage = 'Fehler beim Löschen der Kategorie.';
-          console.error(err);
+        error: () => {
+          this.toastr.error('Fehler beim Löschen der Kategorie', 'Fehler');
         },
       });
     }

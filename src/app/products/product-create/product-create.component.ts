@@ -1,13 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import {Router, RouterLink} from '@angular/router';
-import {FormsModule} from '@angular/forms';
-import {MatSlideToggle} from '@angular/material/slide-toggle';
-import {MatAnchor, MatButton} from '@angular/material/button';
-import {MatOption} from '@angular/material/core';
-import {MatError, MatFormField, MatLabel, MatSelect} from '@angular/material/select';
-import {MatInput} from '@angular/material/input';
-import {MatTooltip} from '@angular/material/tooltip';
-import { ProductControllerService, CategoryControllerService, ProductCreateDto, CategoryShowDto } from '../../shared/services/openAPI';
+import { Router, RouterLink } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { MatSlideToggle } from '@angular/material/slide-toggle';
+import { MatAnchor, MatButton } from '@angular/material/button';
+import { MatOption } from '@angular/material/core';
+import { MatError, MatFormField, MatLabel, MatSelect } from '@angular/material/select';
+import { MatInput } from '@angular/material/input';
+import { MatTooltip } from '@angular/material/tooltip';
+import { ToastrService } from 'ngx-toastr';
+import {
+  ProductControllerService,
+  CategoryControllerService,
+  ProductCreateDto,
+  CategoryShowDto
+} from '../../shared/services/openAPI';
 
 @Component({
   selector: 'app-product-create',
@@ -37,7 +43,7 @@ export class ProductCreateComponent implements OnInit {
     description: '',
     price: 0,
     stock: 0,
-    categoryId: 0,
+    categoryId: 1,
   };
 
   categories: CategoryShowDto[] = [];
@@ -46,6 +52,7 @@ export class ProductCreateComponent implements OnInit {
   constructor(
     private productService: ProductControllerService,
     private categoryService: CategoryControllerService,
+    private toastr: ToastrService,
     private router: Router
   ) {}
 
@@ -60,7 +67,7 @@ export class ProductCreateComponent implements OnInit {
       },
       error: (err) => {
         console.error('Fehler beim Laden der Kategorien:', err);
-        this.errorMessage = 'Fehler beim Laden der Kategorien.';
+        this.toastr.error('Fehler beim Laden der Kategorien.', 'Fehler');
       },
     });
   }
@@ -68,14 +75,13 @@ export class ProductCreateComponent implements OnInit {
   onSubmit(): void {
     this.productService.createProduct(this.productData).subscribe({
       next: () => {
-        alert('Produkt erfolgreich erstellt!');
+        this.toastr.success('Produkt erfolgreich erstellt!', 'Erfolg');
         this.router.navigate(['/products']);
       },
       error: (err) => {
-        this.errorMessage =
-          err.error?.message || 'Fehler beim Erstellen des Produkts.';
+        const errorMsg = err.error?.message || 'Fehler beim Erstellen des Produkts.';
+        this.toastr.error(errorMsg, 'Fehler');
       },
     });
   }
-
 }

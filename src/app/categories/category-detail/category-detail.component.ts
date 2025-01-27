@@ -40,12 +40,4 @@ export class CategoryDetailComponent implements OnInit {
       },
     });
   }
-
-  goBackToCategories(): void {
-    this.router.navigate(['/categories']);
-  }
-
-  viewProductDetails(productId: number): void {
-    this.router.navigate(['/products', productId]);
-  }
 }

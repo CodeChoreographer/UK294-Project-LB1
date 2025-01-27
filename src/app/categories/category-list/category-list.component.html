@@ -23,7 +23,7 @@
           <th mat-header-cell *matHeaderCellDef> Aktionen </th>
           <td mat-cell *matCellDef="let category">
             <a mat-raised-button color="primary" [routerLink]="['/categories', category.id]">
-              Details anzeigen
+              Details
             </a>
             @if (isAdmin) {
               <a mat-raised-button color="accent" [routerLink]="['/categories/edit', category.id]" class="edit-button">
@@ -53,7 +53,7 @@
           </div>
           <div class="card-actions">
             <a mat-raised-button color="primary" [routerLink]="['/categories', category.id]">
-              Details anzeigen
+              Details
             </a>
             @if (isAdmin) {
               <a mat-raised-button color="accent"  [routerLink]="['/categories/edit', category.id]">

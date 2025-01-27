@@ -8,6 +8,4 @@ import {NavbarComponent} from './shared/navbar/navbar.component';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
-  title = 'UK295-Project-LB1';
-}
+export class AppComponent {}
