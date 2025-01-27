@@ -1,12 +1,25 @@
 .navbar {
   background-color: #007bff;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
   padding: 10px 20px;
-  position: relative;
+  transition: transform 0.3s ease-in-out;
+  outline: 2px solid red;
 
-  .menu-toggle {
+  &.hidden {
+    transform: translateY(-100%);
+  }
+
+  &.visible {
+    transform: translateY(0);
+  }
+
+
+
+.menu-toggle {
     display: none;
     background: none;
     border: none;
@@ -73,6 +86,7 @@
       }
     }
   }
+  }
 
   @media screen and (max-width: 768px) {
     .menu-toggle {
@@ -115,4 +129,4 @@
       display: flex;
     }
   }
-}
+

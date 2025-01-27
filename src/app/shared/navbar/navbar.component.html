@@ -1,8 +1,7 @@
-<nav class="navbar">
+  <nav class="navbar" [class.hidden]="!isNavbarVisible">
   <button class="menu-toggle" (click)="toggleMenu()">
     <mat-icon>menu</mat-icon>
   </button>
-
   <ul class="menu" [class.show]="isMenuOpen">
     <li>
       <a routerLink="/products">
