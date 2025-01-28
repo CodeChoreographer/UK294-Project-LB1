@@ -118,10 +118,11 @@
         }
 
         &.open .submenu {
-          display: flex;
+          display: block;
         }
       }
     }
+
 
     .menu.show {
       display: flex;

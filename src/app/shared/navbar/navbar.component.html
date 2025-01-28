@@ -11,7 +11,9 @@
         }
       </a>
       @if (isAdmin) {
-        <ul class="submenu">
+        <ul
+          class="submenu"
+        >
           <li><a routerLink="/products" (click)="closeMenu()">Produkte ansehen</a></li>
           <li><a routerLink="/products/create" (click)="closeMenu()">Produkt erstellen</a></li>
         </ul>
@@ -26,7 +28,9 @@
         }
       </a>
       @if (isAdmin) {
-        <ul class="submenu">
+        <ul
+          class="submenu"
+        >
           <li><a routerLink="/categories" (click)="closeMenu()">Kategorien ansehen</a></li>
           <li><a routerLink="/categories/create" (click)="closeMenu()">Kategorie erstellen</a></li>
         </ul>

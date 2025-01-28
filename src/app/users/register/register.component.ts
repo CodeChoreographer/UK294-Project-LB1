@@ -6,6 +6,7 @@ import {MatError, MatFormField, MatLabel} from '@angular/material/form-field';
 import {MatButton} from '@angular/material/button';
 import {MatInput} from '@angular/material/input';
 import {MatTooltip} from '@angular/material/tooltip';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
@@ -29,9 +30,12 @@ export class RegisterComponent {
 
   errorMessage: string = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router,  private toastr: ToastrService ) {}
 
   private validateForm(): boolean {
+
+    this.errorMessage = '';
+
     if (!/^\d+$/.test(this.formData.zip)) {
       this.errorMessage = 'Die Postleitzahl darf nur aus Zahlen bestehen.';
       return false;
@@ -42,7 +46,10 @@ export class RegisterComponent {
       return false;
     }
 
-    if (!/^\d+(\s\d+)*$/.test(this.formData.phone) || !/^\d+(\s\d+)*$/.test(this.formData.mobilePhone)) {
+    if (
+      (this.formData.phone && !/^\d+(\s\d+)*$/.test(this.formData.phone)) ||
+      (this.formData.mobilePhone && !/^\d+(\s\d+)*$/.test(this.formData.mobilePhone))
+    ) {
       this.errorMessage = 'Telefonnummern dürfen nur Zahlen und nicht mehr als ein Leerzeichen hintereinander enthalten.';
       return false;
     }
@@ -71,11 +78,27 @@ export class RegisterComponent {
 
     this.authService.register(this.formData).subscribe({
       next: () => {
-        alert('Registrierung erfolgreich!');
-        this.router.navigate(['/users/login']);
+        this.toastr.success('Registrierung erfolgreich!', 'Erfolg');
+
+        this.authService.login(this.formData.email, this.formData.password).subscribe({
+          next: (response) => {
+            this.authService.saveToken(response.token);
+
+            this.toastr.success('Login erfolgreich!', 'Willkommen');
+
+            this.router.navigate(['/products']);
+          },
+          error: () => {
+            this.toastr.error(
+              'Registrierung erfolgreich, aber automatischer Login fehlgeschlagen.',
+              'Fehler'
+            );
+          },
+        });
       },
       error: (err) => {
         this.errorMessage = err.error.message || 'Registrierung fehlgeschlagen.';
+        this.toastr.error(this.errorMessage, 'Fehler');
       },
     });
   }

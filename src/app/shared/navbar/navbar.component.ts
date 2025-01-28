@@ -2,6 +2,7 @@ import { AuthService } from '../../shared/services/auth.service';
 import { Component, HostListener } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-navbar',
@@ -14,7 +15,7 @@ export class NavbarComponent {
   isHidden = false;
   isMenuOpen = false;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router, private toastr: ToastrService) {}
 
   get isAuthenticated(): boolean {
     return this.authService.isAuthenticated();
@@ -30,10 +31,12 @@ export class NavbarComponent {
 
   closeMenu(): void {
     this.isMenuOpen = false;
+
   }
 
   logout(): void {
     this.authService.logout();
+    this.toastr.success('Sie sind jetzt ausgeloggt!', 'Logout');
     this.router.navigate(['/users/login']);
     this.closeMenu();
   }
