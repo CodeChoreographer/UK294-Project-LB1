@@ -1,59 +1,94 @@
-# UK295ProjectLB1
+
+# UK295 Project LB1
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.7.
 
-## Development server
+## System Requirements
 
-To start a local development server, run:
+To run the application locally or in a production environment, the following requirements must be met:
 
-```bash
-ng serve
-```
+| **Category**         | **Recommendation**                                           |
+|-----------------------|-------------------------------------------------------------|
+| **Operating System**  | Windows 10/11, macOS Monterey or newer, Ubuntu 20.04+      |
+| **Node.js Version**   | 18.x or higher ([Download here](https://nodejs.org/))      |
+| **npm Version**       | 9.x or higher (comes with Node.js)                         |
+| **Angular CLI**       | 15.x or higher ([Installation Guide](https://angular.io/cli)) |
+| **Browser**           | Latest version of Google Chrome, Firefox, Safari, Edge    |
+| **Hardware**          | CPU: Dual-Core or better, RAM: 4 GB or more, SSD recommended |
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+### Backend-API
+- The application uses a backend available at the following URL:
+  [Swagger Documentation](https://294.cyrotech.ch/swagger-ui/index.html#/).
+- Authentication is performed using Bearer Tokens.
 
-## Code scaffolding
+## Installation
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
+### 1. Clone the repository
+Clone the project repository using:
 
 ```bash
-ng build
+git clone <https://github.com/CodeChoreographer/UK294-Project-LB1.git>
+cd uk295-project-lb1
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+### 2. Install dependencies
+Install the required dependencies:
 
 ```bash
-ng test
+npm install
 ```
 
-## Running end-to-end tests
+## Local Development
 
-For end-to-end (e2e) testing, run:
+Start the application in the development environment:
 
 ```bash
-ng e2e
+npm start
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+The application will be available at `http://localhost:4200`.
 
-## Additional Resources
+## Production Build
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Create a production version of the application with:
+
+```bash
+npm run build
+```
+
+The production build will be placed in the folder `dist/uk295-project-lb1/` and can be deployed on a web server.
+
+## Technologies Used
+
+### Frontend
+- **Angular 17**: Framework for web development
+- **Angular Material**: UI components
+- **ngx-toastr**: Toast notifications
+- **SweetAlert2**: Modal dialogs
+- **JWT-Decode**: Token processing
+
+### Backend
+- API: Documentation at [Swagger](https://294.cyrotech.ch/swagger-ui/index.html#/)
+- Authentication: Bearer Tokens
+
+## Troubleshooting
+
+### Common Issues
+1. **Missing Dependencies**:
+   - Verify that all dependencies are installed correctly:
+     ```bash
+     npm install
+     ```
+
+2. **Invalid Node.js Version**:
+   - Ensure that Node.js is installed in the correct version.
+
+3. **CORS Issues with the API**:
+   - If problems arise with local requests, check the API's CORS settings or use a proxy.
+
+## Additional Notes
+
+- For changes to the backend, refer to [Swagger Documentation](https://294.cyrotech.ch/swagger-ui/index.html#/).
+- UI customizations are based on Angular Material and can be made in the SCSS files.
+
+Enjoy using the application. For questions and issues, feel free to contact the developer cedric.baumann@ict-csbe.ch | CodeChoreographer
