@@ -1,45 +1,49 @@
-  <nav class="navbar" [class.hidden]="!isNavbarVisible">
+<nav class="navbar" [class.hidden]="isHidden" [class.visible]="!isHidden">
   <button class="menu-toggle" (click)="toggleMenu()">
     <mat-icon>menu</mat-icon>
   </button>
   <ul class="menu" [class.show]="isMenuOpen">
     <li>
-      <a routerLink="/products">
+      <a routerLink="/products" (click)="closeMenu()">
         Produkte
         @if (isAdmin) {
           <mat-icon>arrow_drop_down</mat-icon>
         }
       </a>
       @if (isAdmin) {
-        <ul class="submenu">
-          <li><a routerLink="/products">Produkte ansehen</a></li>
-          <li><a routerLink="/products/create">Produkt erstellen</a></li>
+        <ul
+          class="submenu"
+        >
+          <li><a routerLink="/products" (click)="closeMenu()">Produkte ansehen</a></li>
+          <li><a routerLink="/products/create" (click)="closeMenu()">Produkt erstellen</a></li>
         </ul>
       }
     </li>
 
     <li>
-      <a routerLink="/categories">
+      <a routerLink="/categories" (click)="closeMenu()">
         Kategorien
         @if (isAdmin) {
           <mat-icon>arrow_drop_down</mat-icon>
         }
       </a>
       @if (isAdmin) {
-        <ul class="submenu">
-          <li><a routerLink="/categories">Kategorien ansehen</a></li>
-          <li><a routerLink="/categories/create">Kategorie erstellen</a></li>
+        <ul
+          class="submenu"
+        >
+          <li><a routerLink="/categories" (click)="closeMenu()">Kategorien ansehen</a></li>
+          <li><a routerLink="/categories/create" (click)="closeMenu()">Kategorie erstellen</a></li>
         </ul>
       }
     </li>
 
     @if (isAdmin) {
-      <li><a routerLink="/users">Benutzerverwaltung</a></li>
+      <li><a routerLink="/users" (click)="closeMenu()">Benutzerverwaltung</a></li>
     }
 
     @if (!isAuthenticated) {
-      <li><a routerLink="/users/login">Login</a></li>
-      <li><a routerLink="/users/register">Registrieren</a></li>
+      <li><a routerLink="/users/login" (click)="closeMenu()">Login</a></li>
+      <li><a routerLink="/users/register" (click)="closeMenu()">Registrieren</a></li>
     } @else {
       <li><a (click)="logout()">Logout</a></li>
     }

@@ -9,9 +9,13 @@
         type="text"
         id="username"
         name="username"
+        #usernameModel="ngModel"
         [(ngModel)]="username"
         required
       />
+      @if (usernameModel.touched && usernameModel.hasError('required')) {
+        <mat-error>Bitte geben Sie eine gültige E-mailadresse ein</mat-error>
+      }
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="custom-field">
@@ -21,11 +25,13 @@
         type="password"
         id="password"
         name="password"
+        #passwortModel=ngModel
         [(ngModel)]="password"
         required
       />
-
-
+      @if (passwortModel.touched && passwortModel.hasError('required')) {
+        <mat-error>Bitte geben Sie ihr Passwort ein</mat-error>
+      }
     </mat-form-field>
 
     @if (errorMessage) {

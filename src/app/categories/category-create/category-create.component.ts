@@ -21,7 +21,6 @@ import { CategoryControllerService, CategoryCreateDto } from '../../shared/servi
     MatButton,
     MatLabel,
     MatTooltip,
-    JsonPipe,
     MatError,
     MatAnchor,
     RouterLink

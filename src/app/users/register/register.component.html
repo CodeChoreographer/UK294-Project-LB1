@@ -9,9 +9,13 @@
         type="text"
         id="firstName"
         name="firstName"
+        #firstNameModel=ngModel
         [(ngModel)]="formData.firstName"
         required
       />
+      @if (firstNameModel.touched && firstNameModel.hasError('required')) {
+        <mat-error>Bitte geben Sie Ihren Vornamen ein</mat-error>
+      }
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="full-width">
@@ -21,9 +25,13 @@
         type="text"
         id="lastName"
         name="lastName"
+        #lastNameModel=ngModel
         [(ngModel)]="formData.lastName"
         required
       />
+      @if (lastNameModel.touched && lastNameModel.hasError('required')) {
+        <mat-error>Bitte geben Sie Ihren Vornamen ein</mat-error>
+      }
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="full-width">
@@ -33,9 +41,13 @@
         type="text"
         id="street"
         name="street"
+        #streetModel=ngModel
         [(ngModel)]="formData.street"
         required
       />
+      @if (streetModel.touched && streetModel.hasError('required')) {
+        <mat-error>Bitte geben Sie Ihren Strasse inkl. Hausnummer ein</mat-error>
+      }
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="full-width">
@@ -45,9 +57,13 @@
         type="text"
         id="zip"
         name="zip"
+        #zipModel=ngModel
         [(ngModel)]="formData.zip"
         required
       />
+      @if (zipModel.touched && zipModel.hasError('required')) {
+        <mat-error>Bitte geben Sie Ihren Postleitzahl ein</mat-error>
+      }
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="full-width">
@@ -57,9 +73,13 @@
         type="text"
         id="city"
         name="city"
+        #cityModel=ngModel
         [(ngModel)]="formData.city"
         required
       />
+      @if (cityModel.touched && cityModel.hasError('required')) {
+        <mat-error>Bitte geben Sie Ihren Wohnort ein</mat-error>
+      }
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="full-width">
@@ -69,9 +89,13 @@
         type="text"
         id="country"
         name="country"
+        #countryModel=ngModel
         [(ngModel)]="formData.country"
         required
       />
+      @if (countryModel.touched && countryModel.hasError('required')) {
+        <mat-error>Bitte geben Sie Ihren Wohnland als Abkürzung (z.B CH) ein</mat-error>
+      }
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="full-width">
@@ -103,9 +127,13 @@
         type="email"
         id="email"
         name="email"
+        #mailModel=ngModel
         [(ngModel)]="formData.email"
         required
       />
+      @if (mailModel.touched && mailModel.hasError('required')) {
+        <mat-error>Bitte geben Sie ihre gültige E-mail ein</mat-error>
+      }
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="full-width">
@@ -115,9 +143,13 @@
         type="password"
         id="password"
         name="password"
+        #passwortModel=ngModel
         [(ngModel)]="formData.password"
         required
       />
+      @if (passwortModel.touched && passwortModel.hasError('required')) {
+        <mat-error>Bitte geben Sie ihr gewünschtes Passwort ein</mat-error>
+      }
     </mat-form-field>
 
     @if (errorMessage) {

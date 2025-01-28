@@ -9,7 +9,7 @@ import {
   MatHeaderCell,
   MatHeaderCellDef,
   MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef,
-  MatTable
+  MatTable, MatTableModule
 } from '@angular/material/table';
 import {MatAnchor, MatButton} from '@angular/material/button';
 import {ProductControllerService} from '../../shared/services/openAPI';
@@ -22,16 +22,12 @@ import {ProductControllerService} from '../../shared/services/openAPI';
     MatTable,
     MatColumnDef,
     MatHeaderCell,
-    MatHeaderCellDef,
+    MatTableModule,
     MatCell,
-    MatCellDef,
-    MatButton,
     MatHeaderRow,
     MatRow,
-    MatRowDef,
-    MatHeaderRowDef,
     MatAnchor,
-    RouterLink
+    RouterLink,
   ],
   styleUrls: ['./product-list.component.scss']
 })

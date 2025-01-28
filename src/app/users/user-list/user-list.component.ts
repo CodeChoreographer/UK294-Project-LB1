@@ -7,7 +7,7 @@ import {
   MatHeaderCell,
   MatHeaderCellDef,
   MatHeaderRow, MatHeaderRowDef,
-  MatRow, MatRowDef, MatTable
+  MatRow, MatRowDef, MatTable, MatTableModule
 } from '@angular/material/table';
 import {UserControllerService} from '../../shared/services/openAPI';
 
@@ -17,17 +17,7 @@ import {UserControllerService} from '../../shared/services/openAPI';
   styleUrls: ['./user-list.component.scss'],
   imports: [
     MatButton,
-    MatHeaderRow,
-    MatRow,
-    MatCell,
-    MatHeaderCell,
-    MatHeaderCellDef,
-    MatCellDef,
-    MatColumnDef,
-    MatHeaderRowDef,
-    MatRowDef,
-    MatTable,
-    MatAnchor
+    MatTableModule,
   ]
 })
 export class UserListComponent implements OnInit {
