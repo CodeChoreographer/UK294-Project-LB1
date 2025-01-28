@@ -27,7 +27,7 @@ To run the application locally or in a production environment, the following req
 Clone the project repository using:
 
 ```bash
-git clone <https://github.com/CodeChoreographer/UK294-Project-LB1.git>
+git clone https://github.com/CodeChoreographer/UK294-Project-LB1.git
 cd uk295-project-lb1
 ```
 
