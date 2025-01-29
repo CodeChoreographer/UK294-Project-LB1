@@ -2,7 +2,7 @@ import { AuthService } from '../../shared/services/auth.service';
 import { Component, HostListener } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
-import {ToastrService} from 'ngx-toastr';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-navbar',
@@ -31,7 +31,6 @@ export class NavbarComponent {
 
   closeMenu(): void {
     this.isMenuOpen = false;
-
   }
 
   logout(): void {
@@ -40,7 +39,6 @@ export class NavbarComponent {
     this.router.navigate(['/users/login']);
     this.closeMenu();
   }
-
 
   @HostListener('window:scroll', [])
   onWindowScroll(): void {
