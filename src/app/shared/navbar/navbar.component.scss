@@ -81,7 +81,11 @@
         }
       }
 
-      &:hover .submenu {
+      &:hover > .submenu {
+        display: block;
+      }
+
+      &:focus-within > .submenu {
         display: block;
       }
     }
@@ -114,15 +118,9 @@
 
         .submenu {
           position: relative;
-          display: none;
-        }
-
-        &.open .submenu {
-          display: block;
         }
       }
     }
-
 
     .menu.show {
       display: flex;

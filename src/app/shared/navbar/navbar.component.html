@@ -2,18 +2,17 @@
   <button class="menu-toggle" (click)="toggleMenu()">
     <mat-icon>menu</mat-icon>
   </button>
+
   <ul class="menu" [class.show]="isMenuOpen">
     <li>
-      <a routerLink="/products" (click)="closeMenu()">
+      <a routerLink="/products">
         Produkte
         @if (isAdmin) {
           <mat-icon>arrow_drop_down</mat-icon>
         }
       </a>
       @if (isAdmin) {
-        <ul
-          class="submenu"
-        >
+        <ul class="submenu">
           <li><a routerLink="/products" (click)="closeMenu()">Produkte ansehen</a></li>
           <li><a routerLink="/products/create" (click)="closeMenu()">Produkt erstellen</a></li>
         </ul>
@@ -21,16 +20,14 @@
     </li>
 
     <li>
-      <a routerLink="/categories" (click)="closeMenu()">
+      <a routerLink="/categories">
         Kategorien
         @if (isAdmin) {
           <mat-icon>arrow_drop_down</mat-icon>
         }
       </a>
       @if (isAdmin) {
-        <ul
-          class="submenu"
-        >
+        <ul class="submenu">
           <li><a routerLink="/categories" (click)="closeMenu()">Kategorien ansehen</a></li>
           <li><a routerLink="/categories/create" (click)="closeMenu()">Kategorie erstellen</a></li>
         </ul>
