@@ -43,7 +43,7 @@ export class ProductCreateComponent implements OnInit {
     description: '',
     price: 0,
     stock: 0,
-    categoryId: 1,
+    categoryId: 0,
   };
 
   categories: CategoryShowDto[] = [];

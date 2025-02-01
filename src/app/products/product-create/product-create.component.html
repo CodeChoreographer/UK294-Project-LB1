@@ -92,7 +92,7 @@
 
     <mat-form-field appearance="fill">
       <mat-label>Kategorie</mat-label>
-      <mat-select [(ngModel)]="productData.categoryId" name="categoryId" required>
+      <mat-select [(ngModel)]="productData.categoryId" name="categoryId">
         @for (category of categories; track category.id) {
           <mat-option [value]="category.id">{{ category.name }}</mat-option>
         }
